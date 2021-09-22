@@ -1,0 +1,11 @@
+{
+    "main": {
+        "order": "Bestel",
+        "download": "Download"
+    },
+    "headerBlock": {
+        "covidStarLabel": "Covid ster",
+        "inputSeeds": ["Vrijheid", "Geloof", "Onderdrukking"],
+        "headerList": ["Symbool voor vrijheid", "Symbool tegen ideologische onderdrukking", "Symbool voor vrij denken"]
+    }
+}

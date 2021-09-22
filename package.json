@@ -1,0 +1,27 @@
+{
+    "name": "covid-star",
+    "version": "0.0.0",
+    "scripts": {
+        "dev": "vite",
+        "build": "vite build",
+        "serve": "vite preview"
+    },
+    "dependencies": {
+        "get-user-locale": "^1.4.0",
+        "html-ratio-component": "^1.0.2",
+        "js-cookie": "^3.0.1",
+        "lodash": "^4.17.21",
+        "seedrandom": "^3.0.5",
+        "three": "^0.128.0",
+        "three-csg-ts": "^3.1.0",
+        "threejs-export-stl": "^0.0.4",
+        "visual-pattern-generator": "^1.2.3",
+        "vue": "^3.2.13",
+        "vue-router": "4"
+    },
+    "devDependencies": {
+        "@vitejs/plugin-vue": "^1.9.0",
+        "sass": "^1.34.1",
+        "vite": "^2.5.10"
+    }
+}

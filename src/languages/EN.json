@@ -1,0 +1,11 @@
+{
+    "main": {
+        "order": "Order",
+        "download": "Download"
+    },
+    "headerBlock": {
+        "covidStarLabel": "Covid star",
+        "inputSeeds": ["Freedom", "Believe", "Suppression"],
+        "headerList": ["Symbol for freedom", "Symbol against ideologic suppression", "Symbol for free thinking"]
+    }
+}

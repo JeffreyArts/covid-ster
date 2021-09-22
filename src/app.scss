@@ -1,0 +1,130 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    width: 100%;
+}
+
+body {
+    background: #fff;
+    color: #2a2b39;
+    margin: 0;
+    font-family: "DroidSans";
+}
+
+h1 {
+    font-family: "Fixedsys";
+}
+
+* {
+    box-sizing: border-box;
+}
+
+input:-webkit-autofill {
+    background-color: #fff;
+}
+//selection
+::selection {
+    background: #f90;
+    color: #333;
+}
+
+::-moz-selection {
+    background: #f90;
+    color: #2a2b39;
+}
+@font-face {
+    font-family: Fixedsys;
+    src: url("/fonts/fixed-sys.otf");
+}
+@font-face {
+    font-family: DroidSans;
+    src: url("/fonts/DroidSans.otf");
+}
+@font-face {
+    font-family: DroidSans;
+    font-weight: bold;
+    src: url("/fonts/DroidSans-Bold.otf");
+}
+
+.watermark {
+    background-image: url('/images/jeffrey-arts.png');
+    background-size: cover;
+    background-position: left center;
+    position: fixed;
+    padding: 16px;
+    right: 32px;
+    bottom: 16px;
+    width: 72.725px;
+    height: 32px;
+    opacity: .64;
+    display: block;
+    transform-origin: center;
+    transition: .32s all ease;
+    mix-blend-mode: color-burn;
+    &:hover,
+    &:focus {
+        opacity: 1;
+        width: 143.75px;
+        height: 64px;
+    }
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+//main router outlet
+.app {
+    height: 100%;
+    position: relative;
+}
+
+.button {
+    padding: 8px 16px;
+    font-size: 16px;
+    border: 0 none transparent;
+    text-align: center;
+    font-family: "Fixedsys";
+    color: #fff;
+    font-weight: normal;
+    transition: .32s all linear;
+    border-bottom: 2px solid transparent;
+    background-color: #92b1cd;
+
+    &.__isPrimary {
+        background-color: #20558a;
+    }
+
+    &:hover {
+        cursor: pointer;
+        text-shadow: 1px 1px 1px rgba(0,0,0,.32);
+        background: rgba(146,177,205,0.8);
+        &.__isPrimary {
+            background: rgba(32,85,138,0.8);
+        }
+    }
+
+    &:focus {
+        outline:none;
+        background: rgba(146,177,205,0.48);
+        color: rgba(255,255,255,.8);
+
+
+        &.__isPrimary {
+            background: rgba(32,85,138,0.48);
+        }
+    }
+}
+
+
+@keyframes fadeIn {
+    0% {
+        opacity: 0;
+    }
+
+    100% {
+        opacity: 1;
+    }
+}
