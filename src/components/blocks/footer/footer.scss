@@ -12,11 +12,15 @@
     font-size: 32px;
     font-family: "Fixedsys";
     color: #e9f3fd;
-    margin: 0 0 -10px 32px;
+    margin: 0 0 -6px 32px;
+    line-height: 1;
 }
 
 .footer-block-text {
     color: #002859;
+    a {
+        color: currentColor;
+    }
 }
 
 .footer-block-text-container {

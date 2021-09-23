@@ -1,0 +1,98 @@
+.take-action-block {
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-bottom: 80px;
+    padding-top: 80px;
+}
+.take-action-block-container {
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: flex;
+    align-items: center;
+    flex-flow: column;
+}
+
+.take-action-title-container {
+    width: 100%;
+    text-align: center;
+}
+
+.take-action-title {
+    display: inline-block;
+    background-color: #f90;
+    padding: 8px 32px;
+    font-size: 32px;
+    color: #fff;
+    font-family: "Fixedsys";
+    margin: auto;
+    transform: rotate(-0.16deg);
+}
+
+.take-action-notice-container,
+.take-action-description-container {
+    width: 100%;
+    text-align: center;
+    max-width: 100vh;
+    color: #fff;
+    display: inline-block;
+
+    p {
+        text-shadow: 1px 1px 1px rgba(0,0,0,.08)
+    }
+}
+.take-action-notice-title {
+    font-size: 1.1em;
+    color: #ec012d;
+    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.24);
+}
+
+.take-action-list {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    width: calc(100% + 128px);
+    margin-left: -64px;
+    margin-top: 64px;
+    margin-bottom: 48px;
+}
+
+.covid-star-card {
+    width: 360px;
+    background-color: rgba(255,255,255,.96);
+    box-shadow: 0 8px 16px rgba(0,0,0,.08);
+    input {
+        padding: 8px;
+        text-align: center;
+        border: none 0 transparent;
+        background-color: transparent;
+        width: 80%;
+        margin-left: 10%;
+        margin-bottom: 32px;
+        font-size: 24px;
+        border-bottom: 2px solid transparent;
+        font-family: "Fixedsys";
+
+        &:hover {
+            border-bottom-color: #306e9e;
+            color: #92b1cd;
+        }
+
+        &:focus {
+            color: #306e9e;
+            outline: 0 none transparent;
+            border-bottom-color: currentColor;
+        }
+        &::placeholder {
+            color: #92b1cd;
+            font-size: 16px;
+            opacity: 1;
+        }
+        &::-ms-input-placeholder {
+            color: #92b1cd;
+            opacity: 1;
+        }
+    }
+}

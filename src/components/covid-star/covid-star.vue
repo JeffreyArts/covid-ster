@@ -1,6 +1,9 @@
 <style src="./covid-star.scss"></style>
 <template>
-    <div class="covid-star-view"></div>
+    <!-- <div class="covid-star-view"></div> -->
+    <a :download="seed" :href="image" :title="lng.main.downloadStar">
+        <img :src="image" class="covid-star-view">
+    </a>
 </template>
 
 <script>
@@ -12,9 +15,10 @@ import {PolylineAlgorithm, Grid, Polyline} from 'visual-pattern-generator';
 import seedrandom  from "seedrandom";
 
 import patternToThreejs from './../../services/pattern-to-threejs.js'
+import LNG from './../../services/languages.js'
 import { CSG } from 'three-csg-ts';
 
-var camera;
+var camera, renderer, scene;
 var container =  {
     width: 256,
     height: 256,
@@ -103,6 +107,8 @@ export default {
     props: ['seed'],
     data() {
         return {
+            lng: LNG.data,
+            image:'',
             faces:[
                 {
                     title: "top / bottom",
@@ -151,13 +157,7 @@ export default {
                 object.dispose();
             }
 
-            this.scene.remove(object)
-        },
-        updateCanvasSize() {
-            container.width = this.$el.clientWidth;
-            container.height = this.$el.clientWidth;
-
-            this.renderer.setSize( container.width, container.height);
+            scene.remove(object)
         },
         create3DPattern(faceIndex) {
             const diameter = .2;
@@ -316,10 +316,16 @@ export default {
             return array[Math.floor(new Math.seedrandom(seed)() * array.length)];
         },
         procesSeed(){
+
+            this.safeSeed = this.seed
+            if (!this.seed) {
+                this.safeSeed = "D3f4uLt";
+            }
+
             _.each(this.faces, (face, faceIndex) => {
                 this.updateFace(faceIndex)
             })
-            _.each(this.scene.children, childObject => {
+            _.each(scene.children, childObject => {
                 if (childObject.modelValue == true) {
                     removeObject(childObject)
                 }
@@ -335,10 +341,14 @@ export default {
             pattern3D.rotation.y = degrees_to_radians(45);
 
             if (pattern3D && pattern3D.uuid && pattern3D.children.length > 0) {
-                this.scene.add(pattern3D)
+                scene.add(pattern3D)
             }
 
-            setTimeout(this.updateCanvasSize,16)
+
+            renderer.render(scene, camera);
+            setTimeout(() => {
+                this.image = renderer.domElement.toDataURL("image/png");
+            },1)
         },
         updateFace(faceIndex) {
                 var mirrorOptions = [
@@ -402,11 +412,7 @@ export default {
     watch: {
         seed: {
             handler(val, oldVal) {
-                this.safeSeed = this.seed
-                if (!this.seed) {
-                    this.safeSeed = "default";
-                }
-                this.procesSeed()
+                this.procesSeed();
             }
         },
     },
@@ -421,31 +427,24 @@ export default {
           depth: 36
         }
 
-        this.renderer = new THREE.WebGLRenderer({
+        renderer = new THREE.WebGLRenderer({
             alpha: true,
             powerPreference: "low-power",
             antialias: true
         });
-        this.renderer.setSize( window.innerWidth*.8, window.innerHeight*.8 );
+        renderer.setSize( 2048, 2048);
 
-        this.scene             = new THREE.Scene();
-        camera            = new THREE.OrthographicCamera( -16, 16, -16, 16, 0, 100 );
+        scene        = new THREE.Scene();
+        camera       = new THREE.OrthographicCamera( -16, 16, -16, 16, 0, 100 );
         camera.position.set( 0, 8, 0)
         camera.zoom = 4.2
         camera.lookAt( 0, 0, 0)
 
         const cameraHelper = new THREE.CameraHelper(camera);
-
-        function animate(renderer, scene, camera) {
-          renderer.render(scene, camera);
-          setTimeout(() => {
-              animate(renderer, scene, camera)
-          },10)
-        }
-        animate(this.renderer, this.scene, camera);
-
-        this.$el.append( this.renderer.domElement );
-        window.addEventListener('resize', this.updateCanvasSize);
+        this.procesSeed();
+        document.addEventListener("languageChange",() => {
+            this.lng = LNG.data;
+        },false);
     }
 
 }
