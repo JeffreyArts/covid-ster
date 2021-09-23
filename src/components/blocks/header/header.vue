@@ -9,7 +9,7 @@
             <div class="mainstage">
                 <div class="covid-star-container">
                     <img class="placeholder" src="/images/not-a-tracking-pixel.gif"/>
-                    <covid-star-view v-bind:seed="seed" v-bind:type="'svg'"></covid-star-view>
+                    <covid-star-view v-bind:seed="seed" v-bind:filetype="'svg'" v-bind:outline="true"></covid-star-view>
                 </div>
                 <input type="text" name="seed" id="seed" v-model="seedInput" v-on:focus="stopAnimation" v-on:blur="updateCovidStar(seedInput)" v-on:keyup="processSeed">
 

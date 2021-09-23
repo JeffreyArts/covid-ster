@@ -12,7 +12,7 @@
                 <div class="take-action-list">
                     <article class="covid-star-card" v-for="card in cards">
 
-                        <covid-star-view v-bind:seed="card.seed" class="covid-star" v-bind:type="'image'" :class="[!alternateSeed ? '__isVisible' : '']"></covid-star-view>
+                        <covid-star-view v-bind:seed="card.seed" class="covid-star" v-bind:filetype="'png'" v-bind:outline="false"></covid-star-view>
 
                         <input type="text" name="seed" :placeholder="card.placeholder" id="seed" v-model="card.seedInput" v-on:blur="updateCovidStar(card)" v-on:keyup="processSeed(card)">
 

@@ -2,7 +2,7 @@
 <template>
 
     <div class="covid-star">
-        <a :download="seed" :href="image" :title="lng.main.downloadStar" v-if="type == 'image'">
+        <a :download="seed" :href="image" :title="lng.main.downloadStar" v-if="filetype == 'png'">
             <img :src="image" class="covid-star-view">
         </a>
     </div>
@@ -106,8 +106,30 @@ function degrees_to_radians(degrees) {
   return degrees * (pi/180);
 }
 
+function base64SvgToBase64Png (originalBase64, width) {
+    return new Promise(resolve => {
+        let img = document.createElement('img');
+        img.onload = function () {
+            document.body.appendChild(img);
+            let canvas = document.createElement("canvas");
+            let ratio = (img.clientWidth / img.clientHeight) || 1;
+            document.body.removeChild(img);
+            canvas.width = width;
+            canvas.height = width / ratio;
+            let ctx = canvas.getContext("2d");
+            ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+            try {
+                let data = canvas.toDataURL('image/png');
+                resolve(data);
+            } catch (e) {
+                resolve(null);
+            }
+        };
+        img.src = originalBase64;
+    });
+}
 export default {
-    props: ['seed', 'type'],
+    props: ['seed', 'filetype', 'outline'],
     data() {
         return {
             lng: LNG.data,
@@ -348,30 +370,58 @@ export default {
             }
 
 
-            if (this.type == 'svg') {
+            renderer.setClearColor( 0xffffff, 0 );
+            if (this.filetype == 'svg' || this.outline) {
                 renderer.setClearColor( 0xffffff, 1 );
-            } else {
-                renderer.setClearColor( 0xffffff, 0);
             }
 
+
+            var svgElement = this.$el.querySelector('svg');
+            if (svgElement) svgElement.remove();
+            
             renderer.render(scene, camera);
-            this.image = renderer.domElement.toDataURL("image/png");
+            if (!this.outline) {
+                this.image = renderer.domElement.toDataURL("image/png");
+            }
 
-            if (this.type == 'svg') {
-                Potrace.loadImageFromUrl(this.image)
 
-                Potrace.process(()=>{
+            if (this.filetype == 'svg' || this.outline) {
+                Potrace.loadImageFromUrl(renderer.domElement.toDataURL("image/png"))
+
+                Potrace.process(()=> {
                     this.svg = '<svg id="svg" version="1.1" viewBox="0 0 2048 2048" xmlns="http://www.w3.org/2000/svg">';
                     var svgPath = Potrace.getSVG(1);
-                    this.svg += `<path d="M${svgPath.split("M")[1]}" stroke="white" stroke-width="180" fill="white"/>`;
+                    if (this.outline) {
+                        this.svg += `<path d="M${svgPath.split("M")[1]}" stroke="white" stroke-width="180" fill="white"/>`;
+                    }
                     this.svg += `<path d="${svgPath}" fill="black"/>`;
                     this.svg += `</svg>`;
 
-                  var svgElement = this.$el.querySelector('svg');
-                  if (svgElement) svgElement.remove();
-                  // console.log(this.svg);
-                  this.$el.insertAdjacentHTML('beforeend',this.svg)
+                    if (this.filetype == 'svg') {
+                        this.$el.insertAdjacentHTML('beforeend',this.svg)
+                    }
 
+
+                    // Remove any characters outside the Latin1 range
+                    var decoded = unescape(encodeURIComponent(this.svg));
+                    // Now we can use btoa to convert the svg to base64
+                    var base64 = btoa(decoded);
+
+                    if(this.output) {
+                        this.output.svg = `data:image/svg+xml;base64,${base64}`;
+                    }
+
+                    if (this.outline) {
+                        base64SvgToBase64Png(`data:image/svg+xml;base64,${base64}`,2048).then(pngBlob => {
+                            console.log('pngBlob',pngBlob);
+
+                            this.image = pngBlob;
+
+                            if(this.output) {
+                                this.output.png = pngBlob
+                            }
+                        })
+                    }
                 });
             }
         },
@@ -444,9 +494,9 @@ export default {
     mounted() {
         container.width = this.$el.clientWidth;
         container.height = this.$el.clientWidth;
-        var allowedTypes = ['svg', 'image']
-        if (allowedTypes.indexOf(this.type) == -1) {
-            console.error("Invalid type for covid star component", this.type)
+        var allowedTypes = ['svg', 'png']
+        if (allowedTypes.indexOf(this.filetype) == -1) {
+            console.error("Invalid filetype for covid star component", this.filetype)
         }
 
         const dimensions = {
