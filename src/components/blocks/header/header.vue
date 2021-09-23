@@ -9,8 +9,7 @@
             <div class="mainstage">
                 <div class="covid-star-container">
                     <img class="placeholder" src="/images/not-a-tracking-pixel.gif"/>
-                    <covid-star-view v-bind:seed="seed" class="covid-star" :class="[alternateSeed ? '__isVisible' : '']"></covid-star-view>
-                    <covid-star-view v-bind:seed="seeed" class="covid-star" :class="[!alternateSeed ? '__isVisible' : '']"></covid-star-view>
+                    <covid-star-view v-bind:seed="seed" v-bind:type="'svg'"></covid-star-view>
                 </div>
                 <input type="text" name="seed" id="seed" v-model="seedInput" v-on:focus="stopAnimation" v-on:blur="updateCovidStar(seedInput)" v-on:keyup="processSeed">
 
@@ -41,7 +40,6 @@
                 seed: "",
                 seeed: "",
                 lng: LNG.data,
-                alternateSeed: true,
                 inputAnimation: {
                     active: true,
                     index: 1,
@@ -56,13 +54,7 @@
                     return;
                 }
 
-                if (this.alternateSeed) {
-                    this.seeed = seedValue
-                } else {
-                    this.seed = seedValue
-                }
-
-                this.alternateSeed = !this.alternateSeed
+                this.seed = seedValue
             },
             processSeed() {
                 if(this.updatingSeed || this.seedInput == this.seeed || this.seedInput == this.seed) {

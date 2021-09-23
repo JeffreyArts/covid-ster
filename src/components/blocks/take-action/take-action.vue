@@ -12,13 +12,13 @@
                 <div class="take-action-list">
                     <article class="covid-star-card" v-for="card in cards">
 
-                        <covid-star-view v-bind:seed="card.seed" class="covid-star" :class="[!alternateSeed ? '__isVisible' : '']"></covid-star-view>
+                        <covid-star-view v-bind:seed="card.seed" class="covid-star" v-bind:type="'image'" :class="[!alternateSeed ? '__isVisible' : '']"></covid-star-view>
 
                         <input type="text" name="seed" :placeholder="card.placeholder" id="seed" v-model="card.seedInput" v-on:blur="updateCovidStar(card)" v-on:keyup="processSeed(card)">
 
                         <div class="covid-star-card-buttons-container">
-
-
+                            <button type="button" name="order" class="button __isPrimary">{{lng.main.order}}</button>
+                            <button type="button" name="download" class="button ">{{lng.main.download}}</button>
                         </div>
                     </article>
                 </div>
@@ -45,17 +45,17 @@
                 updatingSeed: false,
                 cards: [
                     {
-                        placeholder: "Je naam",
+                        placeholder: LNG.data.takeActionBlock.placeholders[0],
                         seedInput: "",
                         seed: "default"
                     },
                     {
-                        placeholder: "Je BSN nummer",
+                        placeholder: LNG.data.takeActionBlock.placeholders[1],
                         seedInput: "",
                         seed: "default"
                     },
                     {
-                        placeholder: "Je cupmaat / penislengte",
+                        placeholder: LNG.data.takeActionBlock.placeholders[2],
                         seedInput: "",
                         seed: "default"
                     }
@@ -84,6 +84,10 @@
         mounted() {
             document.addEventListener("languageChange",() => {
                 this.lng = LNG.data;
+
+                this.cards[0].placeholder = LNG.data.takeActionBlock.placeholders[0];
+                this.cards[1].placeholder = LNG.data.takeActionBlock.placeholders[1];
+                this.cards[2].placeholder = LNG.data.takeActionBlock.placeholders[2];
             },false);
 
             window.addEventListener('resize', this.updateCanvasSize);

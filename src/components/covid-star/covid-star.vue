@@ -1,9 +1,11 @@
 <style src="./covid-star.scss"></style>
 <template>
-    <!-- <div class="covid-star-view"></div> -->
-    <a :download="seed" :href="image" :title="lng.main.downloadStar">
-        <img :src="image" class="covid-star-view">
-    </a>
+
+    <div class="covid-star">
+        <a :download="seed" :href="image" :title="lng.main.downloadStar" v-if="type == 'image'">
+            <img :src="image" class="covid-star-view">
+        </a>
+    </div>
 </template>
 
 <script>
@@ -15,6 +17,7 @@ import {PolylineAlgorithm, Grid, Polyline} from 'visual-pattern-generator';
 import seedrandom  from "seedrandom";
 
 import patternToThreejs from './../../services/pattern-to-threejs.js'
+import Potrace from './../../services/potrace';
 import LNG from './../../services/languages.js'
 import { CSG } from 'three-csg-ts';
 
@@ -104,7 +107,7 @@ function degrees_to_radians(degrees) {
 }
 
 export default {
-    props: ['seed'],
+    props: ['seed', 'type'],
     data() {
         return {
             lng: LNG.data,
@@ -345,10 +348,32 @@ export default {
             }
 
 
+            if (this.type == 'svg') {
+                renderer.setClearColor( 0xffffff, 1 );
+            } else {
+                renderer.setClearColor( 0xffffff, 0);
+            }
+
             renderer.render(scene, camera);
-            setTimeout(() => {
-                this.image = renderer.domElement.toDataURL("image/png");
-            },1)
+            this.image = renderer.domElement.toDataURL("image/png");
+
+            if (this.type == 'svg') {
+                Potrace.loadImageFromUrl(this.image)
+
+                Potrace.process(()=>{
+                    this.svg = '<svg id="svg" version="1.1" viewBox="0 0 2048 2048" xmlns="http://www.w3.org/2000/svg">';
+                    var svgPath = Potrace.getSVG(1);
+                    this.svg += `<path d="M${svgPath.split("M")[1]}" stroke="white" stroke-width="180" fill="white"/>`;
+                    this.svg += `<path d="${svgPath}" fill="black"/>`;
+                    this.svg += `</svg>`;
+
+                  var svgElement = this.$el.querySelector('svg');
+                  if (svgElement) svgElement.remove();
+                  // console.log(this.svg);
+                  this.$el.insertAdjacentHTML('beforeend',this.svg)
+
+                });
+            }
         },
         updateFace(faceIndex) {
                 var mirrorOptions = [
@@ -419,7 +444,10 @@ export default {
     mounted() {
         container.width = this.$el.clientWidth;
         container.height = this.$el.clientWidth;
-
+        var allowedTypes = ['svg', 'image']
+        if (allowedTypes.indexOf(this.type) == -1) {
+            console.error("Invalid type for covid star component", this.type)
+        }
 
         const dimensions = {
           width: 36,

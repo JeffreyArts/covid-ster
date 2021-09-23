@@ -8,8 +8,8 @@
         "callToAction": "Doe mee !",
         "text": "Wil je anderen laten zien dat jij je inzet voor de individuele vrijheden van jezelf, en die van anderen? Laat het zien!  Je bent vrij om de sterren te gebruiken zoals jij dat wilt. Maar wil je liever gewoon een setje bestellen dan kan dat natuurlijk ook. Gebruik de hashtag #covidster wanneer je foto’s plaatst online, om zo anderen te inspireren om zich in te zetten voor expressieve vrijheid en tegen maatschappelijke onderdrukking.",
         "noticeTitle":"Belangrijk!",
-        "notice":"Geen van de informatie die je op deze website invoert wordt gedeeld met derden, de covid sterren worden lokaal gegenereerd en de oorspronkelijke input van de sterren is dan ook alleen bekend voor jou als gebruiker. Gezien de illustratieve beperkingen, zijn niet alle sterren uniek. Dat betekend dat het niet mogelijk is om op basis van de illustratie de input te traceren zoals bijvoorbeeld bij een QR-code."
-
+        "notice":"Geen van de informatie die je op deze website invoert wordt gedeeld met derden, de covid sterren worden lokaal gegenereerd en de oorspronkelijke input van de sterren is dan ook alleen bekend voor jou als gebruiker. Gezien de illustratieve beperkingen, zijn niet alle sterren uniek. Dat betekend dat het niet mogelijk is om op basis van de illustratie de input te traceren zoals bijvoorbeeld bij een QR-code.",
+        "placeholders": ["Je naam", "BSN nummer", "Je cupmaat/penislengte"]
 
     },
     "footerBlock": {
