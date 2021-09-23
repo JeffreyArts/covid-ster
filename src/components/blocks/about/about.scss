@@ -1,0 +1,45 @@
+.about-block {
+    position: relative;
+    padding-bottom: 64px;
+    width: 100%;
+    justify-content: center;
+    flex-flow: row;
+    flex-wrap: wrap;
+    background-position-y: bottom;
+}
+
+.about-block-overlay {
+    background-color: rgba(255,255,255,.8);
+    width: 100%;
+    padding: 64px 48px;
+}
+
+.about-block-container {
+    max-width: 100vh;
+    margin: auto;
+    text-align: center;
+}
+
+.covid-star-about-text {
+    columns: 1;
+    column-gap: 48px;
+    text-align: justify;
+}
+
+.covid-star-title {
+    display: inline-block;
+    width: auto;
+    font-size: 32px;
+    margin: 0;
+    color: #002859;
+    margin: auto;
+    border-bottom: 2px solid currentColor;
+    padding-bottom: 8px;
+    margin-bottom: 16px;
+}
+
+@media all and (min-width: 640px) {
+    .covid-star-about-text {
+        columns: 2;
+    }
+}

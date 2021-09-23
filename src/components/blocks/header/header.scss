@@ -30,7 +30,7 @@
 }
 
 .header-block {
-    padding-bottom: 64px;
+    padding-bottom: 128px;
     position: relative;
     width: 100%;
     display: -webkit-flex;
@@ -50,15 +50,16 @@
         color: #fff;
         left: 0;
         top: 0;
-        margin: 0;
+        margin: 8px 0 0 0;
         padding: 0;
         left: 16px;
         right: 8px;
+        font-size: 12px;
 
         li {
             display: block;
             font-family: "Fixedsys";
-            margin-top: 16px;
+            margin-top: 8px;
             &:before {
                 content: ">";
                 margin-right: 8px;
@@ -66,6 +67,18 @@
         }
     }
 
+
+    .mainstage-container {
+        display: -webkit-flex;
+        display: -ms-flex;
+        display: flex;
+        min-height: 100vh;
+        flex-flow: column;
+        flex-wrap: nowrap;
+        width: 100%;
+        justify-content: center;
+        align-items: center;
+    }
 
     .mainstage {
         display: inline-block;
@@ -106,18 +119,19 @@
     .covid-star-label {
         position: absolute;
         // transform: rotate(-90deg) translateX(-40%) translateY(48px);
-        transform: rotate(-90deg) translateX(65px);
+        transform: rotate(-90deg) translateX(165px);
         transform-origin: left bottom;
         left: 48px;
         bottom: 0;
         font-family: "Fixedsys";
         font-size: 32px;
         margin: 0;
-        padding: 12px 96px 12px 62px;
+        padding: 12px 96px 12px 32px;
         background-color: #3f78ae;
         transform-origin: left center;
         box-sizing: border-box;
         color: #fff;
+        display: none;
 
         animation: starLabel forwards .48s linear;
     }
@@ -129,9 +143,31 @@
         color: #fff;
         text-align: right;
         width: 128px;
-        
+
         .current-language {
             font-weight: normal;
+        }
+    }
+}
+
+
+@media all and (min-width: 480px) {
+    .header-block {
+        .covid-star-label {
+            display: block;
+        }
+    }
+}
+
+@media all and (min-width: 640px) {
+    .header-block {
+        .bulletpoints {
+            font-size: 16px;
+            margin-top: 0;
+
+            li {
+                margin-top: 16px;
+            }
         }
     }
 }

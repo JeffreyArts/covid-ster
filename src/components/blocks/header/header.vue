@@ -1,21 +1,23 @@
 <template>
     <section class="header-block">
-        <h1 class="covid-star-label">{{lng.covidStarLabel}}</h1>
+        <h1 class="covid-star-label">{{lng.headerBlock.covidStarLabel}}</h1>
         <ul class="bulletpoints">
-            <li v-for="listItem in lng.headerList">{{listItem}}</li>
+            <li v-for="listItem in lng.headerBlock.headerList">{{listItem}}</li>
         </ul>
         <language-select></language-select>
-        <div class="mainstage">
-            <div class="covid-star-container" ratio="1x1">
-                <img class="placeholder" src="/images/not-a-tracking-pixel.gif"/>
-                <covid-star-view v-bind:seed="seed" class="covid-star" :class="[alternateSeed ? '__isVisible' : '']"></covid-star-view>
-                <covid-star-view v-bind:seed="seeed" class="covid-star" :class="[!alternateSeed ? '__isVisible' : '']"></covid-star-view>
-            </div>
-            <input type="text" name="seed" id="seed" v-model="seedInput" v-on:focus="stopAnimation" v-on:blur="updateCovidStar(seedInput)" v-on:keyup="processSeed">
+        <div class="mainstage-container">
+            <div class="mainstage">
+                <div class="covid-star-container">
+                    <img class="placeholder" src="/images/not-a-tracking-pixel.gif"/>
+                    <covid-star-view v-bind:seed="seed" class="covid-star" :class="[alternateSeed ? '__isVisible' : '']"></covid-star-view>
+                    <covid-star-view v-bind:seed="seeed" class="covid-star" :class="[!alternateSeed ? '__isVisible' : '']"></covid-star-view>
+                </div>
+                <input type="text" name="seed" id="seed" v-model="seedInput" v-on:focus="stopAnimation" v-on:blur="updateCovidStar(seedInput)" v-on:keyup="processSeed">
 
-            <div class="buttons-container">
-                <button type="button" name="order" class="button __isPrimary">{{lng.order}}</button>
-                <button type="button" name="download" class="button ">{{lng.download}}</button>
+                <div class="buttons-container">
+                    <button type="button" name="order" class="button __isPrimary">{{lng.main.order}}</button>
+                    <button type="button" name="download" class="button ">{{lng.main.download}}</button>
+                </div>
             </div>
         </div>
     </section>
@@ -38,12 +40,7 @@
                 updatingSeed: false,
                 seed: "",
                 seeed: "",
-                lng: {
-                    covidStarLabel: LNG.data.headerBlock.covidStarLabel,
-                    headerList: LNG.data.headerBlock.headerList,
-                    order: LNG.data.main.order,
-                    download: LNG.data.main.download,
-                },
+                lng: LNG.data,
                 alternateSeed: true,
                 inputAnimation: {
                     active: true,
@@ -102,7 +99,6 @@
 
                         setTimeout(this.animateInput, 3200);
                     } else {
-
                         setTimeout(this.animateInput, this.inputAnimation.speed - Math.random()*120);
                     }
                 }
@@ -112,8 +108,11 @@
         mounted() {
             this.seed = this.defaults[0];
             this.seedInput = this.seed;
-
-            setTimeout(this.animateInput, 2400)
+            document.addEventListener("languageChange",() => {
+                this.lng = LNG.data;
+                this.defaults = LNG.data.headerBlock.inputSeeds;
+            },false);
+            setTimeout(this.animateInput, 3200);
         }
     }
 </script>

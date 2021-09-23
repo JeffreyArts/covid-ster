@@ -9,6 +9,8 @@ const lngTable = {
     en: EN,
     nl: NL,
 }
+var languageEvent = document.createEvent("Event");
+languageEvent.initEvent("languageChange",true,true);
 
 const LNG =  {
     current: null,
@@ -45,8 +47,10 @@ const LNG =  {
             })
         }
 
+
         if (lngTable[LNG.current]) {
             LNG.data = lngTable[LNG.current];
+            document.dispatchEvent(languageEvent);
         } else {
             console.error("Invalid language code")
         }

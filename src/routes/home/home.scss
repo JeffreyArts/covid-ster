@@ -1,0 +1,16 @@
+.home {
+    background-image: url("/images/clout.jpg");
+    background-size: auto 100%;
+    animation: clout2 infinite 48s linear;
+}
+
+
+@keyframes clout2 {
+    0% {
+        background-position-x: 100%;
+    }
+
+    100% {
+        background-position-x: 0%;
+    }
+}

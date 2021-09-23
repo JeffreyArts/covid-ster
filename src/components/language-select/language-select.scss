@@ -39,6 +39,7 @@
         display: inline-block;
         transition:all .32s linear;
         transform: rotate(90deg);
+        pointer-events: none;
     }
 }
 .language-select-dropdown {

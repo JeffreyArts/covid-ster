@@ -1,22 +1,21 @@
 <style src="./home.scss"></style>
 <template>
-    <!-- <header class="languages-container">
-        <ul>
-            <li></li>
-        </ul>
-    </header> -->
-    <header-block></header-block>
+    <div class="home">
+        <header-block></header-block>
+        <about-block></about-block>
 
+    </div>
 </template>
 
 
 <script>
 
+import aboutBlock from './../../components/blocks/about/about.vue'
 import headerBlock from './../../components/blocks/header/header.vue'
 
 
 export default {
-    components: {headerBlock},
+    components: {headerBlock, aboutBlock},
     props: [],
     data() {
         return {
