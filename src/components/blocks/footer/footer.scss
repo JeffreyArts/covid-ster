@@ -1,0 +1,31 @@
+.footer-block {
+    position: relative;
+    padding-bottom: 64px;
+    width: 100%;
+    justify-content: center;
+    flex-flow: row;
+    flex-wrap: wrap;
+    background-position-y: bottom;
+}
+
+.footer-block-title {
+    font-size: 32px;
+    font-family: "Fixedsys";
+    color: #e9f3fd;
+    margin: 0 0 -10px 32px;
+}
+
+.footer-block-text {
+    color: #002859;
+}
+
+.footer-block-text-container {
+    background-color: rgba(255,255,255,.8);
+    width: 100%;
+    padding: 16px 32px;
+}
+
+
+@media all and (min-width: 640px) {
+
+}
