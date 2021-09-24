@@ -1,0 +1,204 @@
+.download-background {
+    position: fixed;
+    background-position: center top;
+    background-size: 2048px auto ;
+    opacity: .04;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: 0;
+    z-index: -1;
+    padding: 0;
+    overflow: hidden;
+}
+
+.download-container {
+    width: 100%;
+    max-width: 1200px;
+    width: 100%;
+    padding: 32px;
+    margin: auto;
+    text-align: center;
+}
+
+.download-header {
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: flex;
+    flex-flow: column;
+    width: 100%;
+    align-items: center;
+
+}
+
+.download-header-take-action-text {
+    font-size: 16px;
+    line-height: 1.48;
+    strong {
+
+        color: #061f36;
+    }
+    a {
+        color: #061f36;
+        &:hover,
+        &:focus {
+            opacity: .8;
+        }
+    }
+}
+.download-step-description {
+    font-size: 14px;
+    margin-top: 32px;
+    line-height: 1.44;
+    strong {
+        color: #061f36;
+    }
+    a {
+        color: #061f36;
+        &:hover,
+        &:focus {
+            opacity: .8;
+        }
+    }
+}
+
+.download-column {
+    max-width: 960px;
+    width: 100%;
+    text-align: left;
+}
+
+.download-title {
+    display: inline-block;
+    margin: auto;
+    font-size: 64px;
+    font-weight: normal;
+}
+
+.download-card {
+    input {
+        width: 100%;
+        border: 0 none transparent;
+        font-size: 32px;
+        font-family: "Fixedsys";
+        text-align: center;
+        background-color: transparent;
+        border-bottom: 2px solid transparent;
+        &:focus {
+            outline: 0;
+            // color: #061f36;
+            border-bottom-color: currentColor;
+        }
+
+    }
+}
+.download-step-header {
+    width: 100%;
+    height: 64px;
+    align-items: center;
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: flex;
+    border-left: 8px solid #061f36;
+}
+
+.download-step-header-text {
+    display: inline-block;
+    width: calc(100% - 64px);
+    padding-left: 16px;
+    font-family: "Fixedsys";
+    font-size: 20px;
+    font-weight: normal;
+}
+
+.download-step-header-icon {
+    display: inline-block;
+    float: right;
+    height: 36px;
+    width: 36px;
+    .checked {
+        opacity: 0;
+        float: left;
+        fill:#8fc163;
+    }
+    .unchecked {
+        fill: #ccc;
+    }
+
+    &.__isCompleted {
+        .checked {
+            opacity: 1;
+        }
+        .unchecked {
+            opacity: 0;
+        }
+    }
+}
+
+.download-step-covid-star-container {
+    width: calc(50% - 32px);
+    max-width: 360px;
+    margin-top: 32px;
+    padding: 8px;
+    + .download-step-covid-star-container {
+        margin-left: 32px;
+    }
+}
+
+.download-step-covid-star-image {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #92b1cd;
+    background-image: linear-gradient(135deg, #c0ddea 0%, #f7fdff 30%, #d5e1f0 80%);
+}
+
+.download-step-covid-star-text {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    margin-top: 32px;
+    margin-bottom: 16px;
+}
+.download-step-covid-star-buttons-container {
+    .button {
+        padding-left: 32px;
+        font-weight: normal;
+        font-size: 18px;
+        padding-right: 32px;
+        +.button {
+            margin-left: 32px;
+        }
+    }
+}
+
+.connect-step,
+.diy-step,
+.download-step {
+    margin-bottom: 128px;
+}
+
+
+.download-step-row {
+    display: -webkit-flex;
+    display: -ms-flex;
+    display: flex;
+    flex-flow: row;
+}
+
+@media all and (min-width:640px){
+    .download-container {
+        padding: 64px;
+    }
+    .download-column {
+        width: 64%;
+    }
+    .download-header {
+        flex-flow:row;
+    }
+    .download-card {
+        width: 36%;
+        padding-left: 48px;
+    }
+}

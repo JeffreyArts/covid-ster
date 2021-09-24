@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 25.4.1, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="checkmark" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 48.1 48.1" style="enable-background:new 0 0 48.1 48.1;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#CCCCCB;}
+	.st1{fill:#8FC163;}
+</style>
+<path id="unchecked" class="st0" d="M24.1,0.1c-13.3,0-24,10.7-24,24s10.7,24,24,24s24-10.7,24-24S37.3,0.1,24.1,0.1z M21,36.5
+	L8.8,24.2l3.9-3.9l8.4,8.4L37,12.8l3.9,3.9L21,36.5z"/>
+<polygon id="checked" class="st1" points="21,36.5 8.8,24.2 12.6,20.4 21,28.8 37,12.8 40.8,16.7 "/>
+</svg>

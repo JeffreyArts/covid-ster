@@ -6,7 +6,7 @@
     },
     "takeActionBlock": {
         "callToAction": "Take action !",
-        "text": "Wil je anderen laten zien dat jij je inzet voor de individuele vrijheden van jezelf, en die van anderen? Laat het zien!  Je bent vrij om de sterren te gebruiken zoals jij dat wilt. Maar wil je liever gewoon een setje bestellen dan kan dat natuurlijk ook. Gebruik de hashtag #covidster wanneer je foto’s plaatst online, om zo anderen te inspireren om zich in te zetten voor expressieve vrijheid en tegen maatschappelijke onderdrukking.",
+        "text": "Wil je anderen laten zien dat jij je inzet voor de individuele vrijheden van jezelf, en die van anderen? Laat het zien!  Je bent vrij om de Covid ster te gebruiken zoals jij dat wilt. Maar wil je liever gewoon een setje bestellen dan kan dat natuurlijk ook. Gebruik de hashtag #covidster wanneer je foto’s plaatst online, om zo anderen te inspireren om zich in te zetten voor expressieve vrijheid en tegen maatschappelijke onderdrukking.",
         "noticeTitle":"Important!",
         "notice":"None of the information on this website is being stored or transmitted to external parties. This means that all of the covid stars are generated locally, and that the source input of these stars can not be traced back, since not all stars are truly unique.",
         "placeholders": ["Your name", "SSN number", "breast size / penis length"]
@@ -23,5 +23,32 @@
         "covidStarLabel": "Covid star",
         "inputSeeds": ["Freedom", "Believe", "Suppression"],
         "headerList": ["Symbol for individual freedom", "Symbol against ideologic suppression", "Symbol for free thinking"]
+    },
+    "downloadPage": {
+        "title": "Take action !",
+        "headerText": "On this page you can download your own Covid star so you can spread the message behind via different ways. The easiest way to spread the message is via social media, use the hashtag <strong>#covidster</strong> in your message associated with the image of your Covid star. To express yourself against the suppression of individual freedom. As a next step you can spread the message in the analog world via stickers, patches or flags. Your Covid star can be downloaded as PNG or SVG. You can also find some links on the bottom of this page, to help you materialize your star. If you prefer to let someone else make it, there are limited possibilities to <a href='/order'>order custom designs</a>. If you are able to produce custom designs on demand feel free to <a href='mailto:contact@jeffreyarts.nl'>reach out to me</a>, so we might be able to expand the possibilities.",
+        "downloadSection": {
+            "title": "Download your own Covid star",
+            "description": "In order to bring the idea behind the Covid star further you can help by downloading your star as SVG or PNG. You are free to use it however you like, but don't forget to use it with respect to anyone who thinks different about it. You can share it directly via social media, but you can also use it to make posters, flags, stickers or patches to name a few. This way the message can be spread anonymously and on its own. Do not forget to use the hashtag <strong>#covidstar</strong> when you share it on social media. This way we don't just influence the algorithms, but increase the reach of the message at the same time.",
+            "outline": "With outline",
+            "noOutline": "Without outline",
+            "png": "PNG",
+            "svg": "SVG"
+        },
+        "diySection": {
+            "title": "Materialisation",
+            "description": "Below a collection of curated links which should help you materialize your Covid star.",
+            "options": [
+                {
+                    "image": "",
+                    "name": "Stickers",
+                    "url": "https://www.instructables.com/The-3-Sticker-Make-a-Vinyl-DIY-Sticker/"
+                }
+            ]
+        },
+        "connectSection": {
+            "title": "Connect",
+            "description": "In a society in which the indivudual freedom us under pressure, it is extra important to keep engaging in conversations with each other. Talk about this subject with friend, family, and strangers as well. Explain them what the Covid star stands for, without convincing them about your own righteousness. Solely show them what it means to you, and why you value what it stands for, for you. The entire concept of good or bad is subjective to the ideology it is based on. Whenever your ideology differs from that of the other, it is simply impossible to convince the other from you right- or wrongness. Espescially when different truths become contradictional to each other. <br /><br />Personally I would love to hear what you think of the Covid star, and/or what it stands for. You can reach me via <a href='instagram.com/jeffrey.arts/'>Insta</a>, or via <a href='mailto:contact@jeffreyarts.nl'>mail</a>."
+        }
     }
 }

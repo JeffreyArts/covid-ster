@@ -8,14 +8,13 @@
         <div class="mainstage-container">
             <div class="mainstage">
                 <div class="covid-star-container">
-                    <img class="placeholder" src="/images/not-a-tracking-pixel.gif"/>
                     <covid-star-view v-bind:seed="seed" v-bind:filetype="'svg'" v-bind:outline="false"></covid-star-view>
                 </div>
                 <input type="text" name="seed" id="seed" v-model="seedInput" v-on:focus="stopAnimation" v-on:blur="updateCovidStar(seedInput)" v-on:keyup="processSeed">
 
                 <div class="buttons-container">
                     <button type="button" name="order" class="button __isPrimary">{{lng.main.order}}</button>
-                    <button type="button" name="download" class="button ">{{lng.main.download}}</button>
+                    <button type="button" name="download" class="button" @click="download(seed)">{{lng.main.download}}</button>
                 </div>
             </div>
         </div>
@@ -25,6 +24,9 @@
 <script>
 
     import seedrandom  from "seedrandom";
+    import cookie from 'js-cookie';
+    import router from './../../../routes'
+
     import covidStarView from './../../../components/covid-star/covid-star.vue'
     import languageSelect from './../../../components/language-select/language-select.vue'
     import LNG from './../../../services/languages.js'
@@ -38,7 +40,6 @@
                 seedInput: "",
                 updatingSeed: false,
                 seed: "",
-                seeed: "",
                 lng: LNG.data,
                 inputAnimation: {
                     active: true,
@@ -50,14 +51,18 @@
         },
         methods: {
             updateCovidStar(seedValue) {
-                if (seedValue == this.seeed || seedValue == this.seed) {
+                if (seedValue == this.seed) {
                     return;
                 }
 
                 this.seed = seedValue
             },
+            download(seed) {
+                cookie.set('activeSeed', seed, { expires: 3 });
+                router.push({ name: 'download'})
+            },
             processSeed() {
-                if(this.updatingSeed || this.seedInput == this.seeed || this.seedInput == this.seed) {
+                if(this.updatingSeed || this.seedInput == this.seed) {
                     clearTimeout(this.updatingSeed);
                 }
 

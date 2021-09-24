@@ -7,10 +7,12 @@
         "serve": "vite preview"
     },
     "dependencies": {
+        "file-saver": "^2.0.5",
         "get-user-locale": "^1.4.0",
         "html-ratio-component": "^1.0.2",
         "js-cookie": "^3.0.1",
         "lodash": "^4.17.21",
+        "save-svg-as-png": "^1.4.17",
         "seedrandom": "^3.0.5",
         "three": "^0.128.0",
         "three-csg-ts": "^3.1.0",

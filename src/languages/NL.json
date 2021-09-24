@@ -6,7 +6,7 @@
     },
     "takeActionBlock": {
         "callToAction": "Doe mee !",
-        "text": "Wil je anderen laten zien dat jij je inzet voor de individuele vrijheden van jezelf, en die van anderen? Laat het zien!  Je bent vrij om de sterren te gebruiken zoals jij dat wilt. Maar wil je liever gewoon een setje bestellen dan kan dat natuurlijk ook. Gebruik de hashtag #covidster wanneer je foto’s plaatst online, om zo anderen te inspireren om zich in te zetten voor expressieve vrijheid en tegen maatschappelijke onderdrukking.",
+        "text": "Wil je anderen laten zien dat jij je inzet voor de individuele vrijheden van jezelf, en die van anderen? Laat het zien!  Je bent vrij om de Covid ster te gebruiken zoals jij dat wilt. Maar wil je liever gewoon een setje bestellen dan kan dat natuurlijk ook. Gebruik de hashtag #covidster wanneer je foto’s plaatst online, om zo anderen te inspireren om zich in te zetten voor expressieve vrijheid en tegen maatschappelijke onderdrukking.",
         "noticeTitle":"Belangrijk!",
         "notice":"Geen van de informatie die je op deze website invoert wordt gedeeld met derden, de covid sterren worden lokaal gegenereerd en de oorspronkelijke input van de sterren is dan ook alleen bekend voor jou als gebruiker. Gezien de illustratieve beperkingen, zijn niet alle sterren uniek. Dat betekend dat het niet mogelijk is om op basis van de illustratie de input te traceren zoals bijvoorbeeld bij een QR-code.",
         "placeholders": ["Je naam", "BSN nummer", "Je cupmaat/penislengte"]
@@ -14,7 +14,7 @@
     },
     "footerBlock": {
         "text": "Deze website, de illustries met het bijbehorende algoritme zijn bedacht, ontworpen en ontwikkeld door <a href='https://www.jeffreyarts.nl' target='_blank'>Jeffrey Arts</a> als een reactie op het Corona paspoort, en vormen een onderdeel in zijn artistieke praktijk waarin hij zijn identiteit buiten zichzelf plaatst door middel van middel van acties, creaties & bevragingen. Vaak met behulp van zelf ontwikkelde soft- & hardware.",
-        "title": "Footnote"
+        "title": "Voetnoot"
     },
     "aboutBlock": {
         "text": "We leven in een maatschappij waar de individuele vrijheid onder druk staat. Er heerst een enkelzijdig dominant perspectief rondom allerlei thema’s die ons allen aan gaan. Zij die zich uitspreken tegen dit dominante perspectief worden opzij gezet en weg gezet in een negatief hokje. Alles onder de noemer van ‘vrijheid voor iedereen’. Waarbij de vrijheid van de ander zwaarder lijkt te wegen dan de vrijheid van de eigen individu. Maar hoe kun je de ander nu echt de vrijheid geven, wanneer je deze ander via deze zelfde methode in zijn of haar vrijheid beperkt. Er is geen goed of kwaad, er is slechts perceptie van daden, gedachten, en dingen die wij als goed of kwaad bemerken. Zonder religieuze ideologie, berusten deze ideeën van goed of kwaad op onze economie. Dat het goed is om onze individuele vrijheden in te perken, omwille van een ‘gezonde’ economie is geloof.<br><br>Dat geloof leidt tot conflict is iets wat onze geschiedenis maar vaak genoeg heeft laten zien. Om deze reden is het zo extreem belangrijk dat iedereen de vrijheid heeft om te geloven wat hij of zij gelooft. In de maatschappij moet er ruimte en respect zijn, voor elk ander die anders naar de wereld kijkt dan jij zelf. De covid ster staat symbool voor precies dit. Het respecteren van anders denkenden, en men de vrijheid geven om zich te uiten op de manier hoe zij dat wensen. We moeten de overeenkomsten tussen mensen die behoren tot een bepaalde groep niet als de absolute waarheid aanzien, maar slechts gebruiken als leidraad. Want de groep waartoe de individu zich toebedeeld, is niet persé gelijk aan de groep waar de buitenstaander de individu heeft toebedeeld. <br><br> De covid ster is ontworpen voor hen die zichzelf hierover willen uitspreken, zonder hiervoor woorden te hoeven gebruiken. De ster wordt gegenereerd op basis van een tekst input waardoor de individuele variëteit wordt onderstreept, terwijl de drager zichzelf tegelijkertijd tot een groep toebedeeld. Een groep mensen die zich inzetten voor meer individuele vrijheid, en tegen de systematische ideologische onderdrukking van anders denkenden.",
@@ -24,5 +24,33 @@
         "covidStarLabel": "Covid ster",
         "inputSeeds": ["Vrijheid", "Geloof", "Onderdrukking"],
         "headerList": ["Symbool voor individuele vrijheid", "Symbool tegen ideologische onderdrukking", "Symbool voor vrij denken"]
+    },
+    "downloadPage": {
+        "title": "Take action !",
+        "headerText": "Download je eigen covid ster, en verspreid hem om de boodschap voor een vrije maatschappij te verspreiden! De makkelijkste manier is om dit te verspreiden is via social media. Gebruik hiervoor de hashtag <strong>#covidster</strong>. Wil je, je liever in de fysieke wereld uitspreken door bijvoorbeeld stickers, patches of vlaggen te maken. Dan kun je hier jouw Covid ster downloaden als PNG of SVG. Ook staan hieronder een aantal links om je op weg te helpen om deze attributen zelf te maken met minimale middelen. Vind je dit teveel gedoe, dan zijn er ook beperkte mogelijkheden om <a href='/order'>custom ontwerpen te bestellen</a>. Dus voel je ook vrij om <a href='mailto:contact@jeffreyarts.nl'>contact op te nemen</a> wanneer je geinteresseerd bent om  te helpen deze mogelijkheden uit te breiden.",
+        "downloadSection": {
+            "title": "Download jouw eigen Covid ster",
+            "description": "Om het idee achter de de covid ster voort te brengen kun je hem downloaden als SVG of PNG. Je bent vrij om het te gebruiken zoals jij wilt, maar vergeet niet om dit met respect te doen voor een ieder die er anders over denkt. Je kunt hem direct delen op sociale media, maar je kunt hem ook gebruiken om er posters, vlaggen, stickers of patches te maken. Zo kan het bericht erachter verspreid worden anoniem en op zichzelf. Vergeet niet om de hashtag <strong>#covidster</strong> te gebruiken wanneer je het deelt op social media. Zo kunnen we niet alleen het algoritme beinvloeden, maar wordt ook het bereik sneller zichtbaar.",
+            "outline": "Met witte omlijning",
+            "noOutline": "Zonder witte omlijning",
+            "png": "PNG",
+            "svg": "SVG"
+        },
+        "diySection": {
+            "title": "Materialiseer jouw Covid ster",
+            "description": "Om je op weg te helpen om jouw Covid ster een eigen leven te geven, staan hieronder een aantal links met informatie over hoe jij jouw Covid ster kunt materialiseren.",
+            "options": [
+                {
+                    "image": "",
+                    "name": "Stickers",
+                    "url": "https://nl.wikihow.com/Stickers-maken"
+                }
+            ]
+        },
+        "connectSection": {
+            "title": "Maak contact",
+            "description": "In een maatschappij waarin de individuele vrijheid onder druk staat, is het des te belangrijker om met elkaar in gesprek te blijven gaan. Praat hierover met vrienden, familie, maar zeker ook vreemden. Leg ze uit waar de covid ster voor staat, zonder ze te overtuigen dat het iets goeds is. Maar laat ze slechts inzien waar je voor staat. Het hele concept van goed of slecht is namelijk subjectief aan de ideologie waar het op gestoeld is. Wanneer jouw ideologie afwijkt van de ander, dan is het simpelweg niet mogelijk om de ander te overtuigen van jouw goed of fout, waarheden kunnen contradictioneel zijn. <br /><br />Zelf ben ik reuze benieuwd naar jouw intepertatie, wat vind jij van de covid ster? Laat het me weten via <a href='instagram.com/jeffrey.arts/'>Insta</a>, of stuur me een <a href='mailto:contact@jeffreyarts.nl'>mailtje</a>."
+        }
+
     }
 }

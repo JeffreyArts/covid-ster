@@ -127,7 +127,7 @@ function base64SvgToBase64Png (originalBase64, width) {
     });
 }
 export default {
-    props: ['seed', 'filetype', 'outline'],
+    props: ['seed', 'filetype', 'outline', 'output'],
     data() {
         return {
             lng: LNG.data,
@@ -381,6 +381,9 @@ export default {
             if (!this.outline) {
                 this.image = renderer.domElement.toDataURL("image/png");
             }
+            if(this.output && !this.outline) {
+                this.output.png = this.image
+            }
 
 
             if (this.filetype == 'svg' || this.outline) {
@@ -409,10 +412,13 @@ export default {
                         this.$el.insertAdjacentHTML('beforeend',this.svg)
                     }
 
-                    if (this.outline && this.filetype == 'png') {
-                        base64SvgToBase64Png(`data:image/svg+xml;base64,${base64}`,2048).then(pngBlob => {
+                    if (this.outline) {
+                        base64SvgToBase64Png(`data:image/svg+xml;base64,${base64}`, 2048).then(pngBlob => {
 
-                            this.image = pngBlob;
+                            if (this.filetype == 'png') {
+                                this.image = pngBlob;
+                            }
+
                             if(this.output) {
                                 this.output.png = pngBlob
                             }
