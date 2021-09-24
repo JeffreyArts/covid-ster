@@ -1223,7 +1223,9 @@ var Potrace = (function() {
     }
     bmToPathlist();
     processPath();
-    callback();
+    if (callback) {
+        callback();
+    }
     callback = null;
   }
 

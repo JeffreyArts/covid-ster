@@ -1,11 +1,9 @@
 <style src="./covid-star.scss"></style>
 <template>
 
-    <div class="covid-star">
-        <a :download="seed" :href="image" :title="lng.main.downloadStar" v-if="filetype == 'png'">
-            <img :src="image" class="covid-star-view">
-        </a>
-    </div>
+        <div :title="lng.main.downloadStar" class="covid-star">
+            <img :src="image" class="covid-star-view" v-if="filetype == 'png'">
+        </div>
 </template>
 
 <script>
@@ -378,7 +376,7 @@ export default {
 
             var svgElement = this.$el.querySelector('svg');
             if (svgElement) svgElement.remove();
-            
+
             renderer.render(scene, camera);
             if (!this.outline) {
                 this.image = renderer.domElement.toDataURL("image/png");
@@ -397,10 +395,6 @@ export default {
                     this.svg += `<path d="${svgPath}" fill="black"/>`;
                     this.svg += `</svg>`;
 
-                    if (this.filetype == 'svg') {
-                        this.$el.insertAdjacentHTML('beforeend',this.svg)
-                    }
-
 
                     // Remove any characters outside the Latin1 range
                     var decoded = unescape(encodeURIComponent(this.svg));
@@ -411,12 +405,14 @@ export default {
                         this.output.svg = `data:image/svg+xml;base64,${base64}`;
                     }
 
-                    if (this.outline) {
+                    if (this.filetype == 'svg') {
+                        this.$el.insertAdjacentHTML('beforeend',this.svg)
+                    }
+
+                    if (this.outline && this.filetype == 'png') {
                         base64SvgToBase64Png(`data:image/svg+xml;base64,${base64}`,2048).then(pngBlob => {
-                            console.log('pngBlob',pngBlob);
 
                             this.image = pngBlob;
-
                             if(this.output) {
                                 this.output.png = pngBlob
                             }
