@@ -18,7 +18,7 @@
 
                         <div class="covid-star-card-buttons-container">
                             <button type="button" name="order" class="button __isPrimary">{{lng.main.order}}</button>
-                            <button type="button" name="download" class="button ">{{lng.main.download}}</button>
+                            <button type="button" name="download" class="button" @click="download(seed)">{{lng.main.download}}</button>
                         </div>
                     </article>
                 </div>
@@ -33,8 +33,11 @@
 
 <script>
 
-    import LNG from './../../../services/languages.js'
-    import covidStarView from './../../../components/covid-star/covid-star.vue'
+    import LNG from './../../../services/languages.js';
+    import covidStarView from './../../../components/covid-star/covid-star.vue';
+    import cookie from 'js-cookie';
+    import router from './../../../routes';
+
 
     export default {
         components: {covidStarView},
@@ -80,6 +83,10 @@
                     this.updateCovidStar(card)
                 }, 440);
             },
+            download(seed) {
+                cookie.set('activeSeed', seed, { expires: 3 });
+                router.push({ name: 'download'})
+            },
         },
         mounted() {
             document.addEventListener("languageChange",() => {
@@ -89,8 +96,6 @@
                 this.cards[1].placeholder = LNG.data.takeActionBlock.placeholders[1];
                 this.cards[2].placeholder = LNG.data.takeActionBlock.placeholders[2];
             },false);
-
-            window.addEventListener('resize', this.updateCanvasSize);
         }
     }
 </script>

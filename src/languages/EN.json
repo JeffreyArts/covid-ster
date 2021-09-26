@@ -38,11 +38,17 @@
         "diySection": {
             "title": "Materialisation",
             "description": "Below a collection of curated links which should help you materialize your Covid star.",
+            "optionOverlay": "Sample",
             "options": [
                 {
-                    "image": "",
+                    "image": "/images/mock-ups/stickers.png",
                     "name": "Stickers",
                     "url": "https://www.instructables.com/The-3-Sticker-Make-a-Vinyl-DIY-Sticker/"
+                },
+                {
+                    "image": "/images/mock-ups/patch.jpg",
+                    "name": "Patch",
+                    "url": "https://www.youtube.com/watch?v=gLEAnjtx8jQ"
                 }
             ]
         },

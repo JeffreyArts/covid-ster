@@ -2,7 +2,7 @@
 <template>
     <figure :style="{'background-image':`url(${imageData.png})`, 'background-position-y': bgPos}" class="download-background"></figure>
     <div class="download-container">
-        <h1 class="download-title">Doe mee!</h1>
+        <h1 class="download-title">{{lng.downloadPage.title}}</h1>
 
         <header class="download-header">
             <div class="download-column">
@@ -30,15 +30,15 @@
             <div class="download-step-row">
                 <div class="download-step-covid-star-container">
                     <figure class="download-step-covid-star-image" id="covid-star-no-outline" ratio="1x1">
-                        <covid-star v-bind:seed="seed" v-bind:filetype="'png'" v-bind:outline="false" v-bind:output="noOutline"></covid-star>
+                        <covid-star v-bind:seed="seed" v-bind:filetype="'svg'" v-bind:outline="false" v-bind:output="noOutline"></covid-star>
                     </figure>
                     <span class="download-step-covid-star-text">{{lng.downloadPage.downloadSection.noOutline}}</span>
 
                     <div class="download-step-covid-star-buttons-container">
-                        <button @click="downloadImage(noOutline.png)" class="button __isPrimary">
+                        <button @click="downloadImage(noOutline, 'png')" class="button __isPrimary">
                             PNG
                         </button>
-                        <button @click="downloadImage(noOutline.svg)" class="button __isPrimary">
+                        <button @click="downloadImage(noOutline, 'svg')" class="button __isPrimary">
                             SVG
                         </button>
                     </div>
@@ -53,10 +53,10 @@
                     <span class="download-step-covid-star-text">{{lng.downloadPage.downloadSection.outline}}</span>
 
                     <div class="download-step-covid-star-buttons-container">
-                        <button @click="downloadImage(outline.png, 'outline')" class="button __isPrimary">
+                        <button @click="downloadImage(outline, 'png', 'outline')" class="button __isPrimary">
                             PNG
                         </button>
-                        <button @click="downloadImage(outline.svg, 'outline')" class="button __isPrimary">
+                        <button @click="downloadImage(outline, 'svg', 'outline')" class="button __isPrimary">
                             SVG
                         </button>
                     </div>
@@ -75,12 +75,16 @@
                 </header>
 
                 <p class="download-step-description" v-html="lng.downloadPage.diySection.description"></p>
-                <article v-for="option in lng.downloadPage.diySection.options">
-                    <figure class="diy-step-image-container">
-                        <img :src="option.image" />
-                    </figure>
-                    <a :href="option.url" class="button" target="_blank" @click="diyStepComplete = true">{{option.name}}</a>
-                </article>
+
+                <div class="diy-step-options">
+                    <a :href="option.url" class="diy-step-option" target="_blank" @click="diyStepComplete = true" v-for="option in lng.downloadPage.diySection.options">
+                        <figure class="diy-step-image-container" ratio="16x9">
+                            <span class="diy-step-image-sample">{{lng.downloadPage.diySection.optionOverlay}}</span>
+                            <div class="diy-step-image" :style="{'background-image':`url(${option.image})`}"></div>
+                        </figure>
+                        <span class="button">{{option.name}}</span>
+                    </a>
+                </div>
             </div>
 
         </div>
@@ -122,6 +126,7 @@ export default {
             bgPos: 0,
             downloadStepComplete: false,
             diyStepComplete: false,
+            connectStepComplete: false,
             updatingSeed: false,
             seedInput: "",
             seed: cookie.get('activeSeed') || "Covid*",
@@ -153,16 +158,16 @@ export default {
                 this.updateCovidStar(this.seedInput)
             }, 440);
         },
-        downloadImage(blob, type) {
-            if (blob.indexOf(':image/svg+xml') == -1) {
+        downloadImage(blobObject, type, outline) {
+            if (type == 'png') {
                 // Ugly solution.. But hey.. Time!
-                if (type == 'outline') {
+                if (outline) {
                     saveSvgAsPng(document.getElementById('covid-star-outline').querySelector("svg"), `${this.seed}.png`);
                 } else {
-                    saveAs(blob, `${this.seed}.png`)
+                    saveAs(blobObject.png, `${this.seed}.png`)
                 }
             } else {
-                saveAs(blob, `${this.seed}.svg`)
+                saveAs(blobObject.svg, `${this.seed}.svg`)
             }
             this.downloadStepComplete = true;
         }
@@ -170,7 +175,11 @@ export default {
     mounted() {
         document.addEventListener("languageChange",this.updateLanguage,false);
         window.addEventListener("scroll",this.scrollBg);
-        this.seedInput = this.seed
+        this.seedInput = this.seed;
+        document.querySelector("html").scrollTop = 0;
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+        window.dispatchEvent(new Event("resize"));
     },
     unmounted() {
         document.removeEventListener("languageChange",this.updateLanguage);

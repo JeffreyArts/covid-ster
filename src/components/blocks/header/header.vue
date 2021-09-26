@@ -8,7 +8,7 @@
         <div class="mainstage-container">
             <div class="mainstage">
                 <div class="covid-star-container">
-                    <covid-star-view v-bind:seed="seed" v-bind:filetype="'svg'" v-bind:outline="false"></covid-star-view>
+                    <covid-star-view v-bind:seed="seed" v-bind:filetype="'svg'" v-bind:outline="true"></covid-star-view>
                 </div>
                 <input type="text" name="seed" id="seed" v-model="seedInput" v-on:focus="stopAnimation" v-on:blur="updateCovidStar(seedInput)" v-on:keyup="processSeed">
 

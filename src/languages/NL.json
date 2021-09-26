@@ -39,11 +39,17 @@
         "diySection": {
             "title": "Materialiseer jouw Covid ster",
             "description": "Om je op weg te helpen om jouw Covid ster een eigen leven te geven, staan hieronder een aantal links met informatie over hoe jij jouw Covid ster kunt materialiseren.",
+            "optionOverlay": "Voorbeeld",
             "options": [
                 {
-                    "image": "",
+                    "image": "/images/mock-ups/stickers.png",
                     "name": "Stickers",
                     "url": "https://nl.wikihow.com/Stickers-maken"
+                },
+                {
+                    "image": "/images/mock-ups/patch.jpg",
+                    "name": "Patch",
+                    "url": "https://www.youtube.com/watch?v=gLEAnjtx8jQ"
                 }
             ]
         },

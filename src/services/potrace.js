@@ -32,7 +32,7 @@
  *                                    optional parameter opt_type can be "curve"
  */
 
-var Potrace = (function() {
+var Potrace = function() {
 
   function Point(x, y) {
     this.x = x;
@@ -1294,6 +1294,6 @@ var Potrace = (function() {
     getSVG: getSVG,
     img: imgElement
   };
-})();
+};
 
 export default Potrace

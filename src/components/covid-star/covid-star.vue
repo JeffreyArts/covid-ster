@@ -1,7 +1,7 @@
 <style src="./covid-star.scss"></style>
 <template>
 
-        <div :title="lng.main.downloadStar" class="covid-star">
+        <div class="covid-star">
             <img :src="image" class="covid-star-view" v-if="filetype == 'png'">
         </div>
 </template>
@@ -15,7 +15,7 @@ import {PolylineAlgorithm, Grid, Polyline} from 'visual-pattern-generator';
 import seedrandom  from "seedrandom";
 
 import patternToThreejs from './../../services/pattern-to-threejs.js'
-import Potrace from './../../services/potrace';
+import potrace from './../../services/potrace';
 import LNG from './../../services/languages.js'
 import { CSG } from 'three-csg-ts';
 
@@ -339,7 +339,7 @@ export default {
             return array[Math.floor(new Math.seedrandom(seed)() * array.length)];
         },
         procesSeed(){
-
+            const Potrace = new potrace();
             this.safeSeed = this.seed
             if (!this.seed) {
                 this.safeSeed = "D3f4uLt";
@@ -368,25 +368,25 @@ export default {
             }
 
 
+            // Prepare new render
             renderer.setClearColor( 0xffffff, 0 );
-            if (this.filetype == 'svg' || this.outline) {
-                renderer.setClearColor( 0xffffff, 1 );
-            }
-
-
             var svgElement = this.$el.querySelector('svg');
             if (svgElement) svgElement.remove();
-
             renderer.render(scene, camera);
-            if (!this.outline) {
-                this.image = renderer.domElement.toDataURL("image/png");
-            }
+
+
+            // Get image for PNG
+            this.image = renderer.domElement.toDataURL("image/png");
             if(this.output && !this.outline) {
                 this.output.png = this.image
             }
 
 
+
             if (this.filetype == 'svg' || this.outline) {
+                // Render image for SVG
+                renderer.setClearColor( 0xffffff, 1 );
+                renderer.render(scene, camera);
                 Potrace.loadImageFromUrl(renderer.domElement.toDataURL("image/png"))
 
                 Potrace.process(()=> {
@@ -409,23 +409,25 @@ export default {
                     }
 
                     if (this.filetype == 'svg') {
+                        var svgElement = this.$el.querySelector('svg');
+                        if (svgElement) svgElement.remove();
                         this.$el.insertAdjacentHTML('beforeend',this.svg)
                     }
 
-                    if (this.outline) {
-                        base64SvgToBase64Png(`data:image/svg+xml;base64,${base64}`, 2048).then(pngBlob => {
+                    base64SvgToBase64Png(`data:image/svg+xml;base64,${base64}`, 2048).then(pngBlob => {
 
-                            if (this.filetype == 'png') {
-                                this.image = pngBlob;
-                            }
+                        if (this.filetype == 'png' && this.outline) {
+                            this.image = pngBlob;
+                        }
 
-                            if(this.output) {
-                                this.output.png = pngBlob
-                            }
-                        })
-                    }
+
+                        if(this.output && this.outline) {
+                            this.output.png = pngBlob
+                        }
+                    })
                 });
             }
+
         },
         updateFace(faceIndex) {
                 var mirrorOptions = [
