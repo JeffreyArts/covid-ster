@@ -17,8 +17,8 @@
                         <input type="text" name="seed" :placeholder="card.placeholder" id="seed" v-model="card.seedInput" v-on:blur="updateCovidStar(card)" v-on:keyup="processSeed(card)">
 
                         <div class="covid-star-card-buttons-container">
-                            <button type="button" name="order" class="button __isPrimary">{{lng.main.order}}</button>
-                            <button type="button" name="download" class="button" @click="download(seed)">{{lng.main.download}}</button>
+                            <button type="button" name="order" @click="order(seed)" class="button">{{lng.main.order}}</button>
+                            <button type="button" name="download" class="button __isPrimary" @click="download(seed)">{{lng.main.download}}</button>
                         </div>
                     </article>
                 </div>
@@ -28,24 +28,29 @@
                 </div>
             </div>
         </section>
+        <newsletter-popup :active="showNewsletter"></newsletter-popup>
+
     </section>
 </template>
 
 <script>
 
-    import LNG from './../../../services/languages.js';
-    import covidStarView from './../../../components/covid-star/covid-star.vue';
-    import cookie from 'js-cookie';
-    import router from './../../../routes';
+import cookie from 'js-cookie';
+
+import LNG from './../../../services/languages.js';
+import newsletterPopup from './../../../components/newsletter-popup/newsletter-popup.vue'
+import covidStarView from './../../../components/covid-star/covid-star.vue';
+import router from './../../../routes';
 
 
     export default {
-        components: {covidStarView},
+        components: {covidStarView, newsletterPopup},
         props: [],
         data() {
             return {
                 lng: LNG.data,
                 updatingSeed: false,
+                showNewsletter: false,
                 cards: [
                     {
                         placeholder: LNG.data.takeActionBlock.placeholders[0],
@@ -68,11 +73,13 @@
         methods: {
 
             updateCovidStar(card) {
-                console.log('card',card);
                 if (card.seedInput == card.seed) {
                     return;
                 }
                 card.seed = card.seedInput;
+            },
+            order(seed) {
+                this.showNewsletter = true;
             },
             processSeed(card) {
                 if(this.updatingSeed || card.seedInput == card.seed) {
@@ -89,6 +96,10 @@
             },
         },
         mounted() {
+            document.addEventListener("closeNewsletter",() => {
+                this.showNewsletter = false
+            });
+
             document.addEventListener("languageChange",() => {
                 this.lng = LNG.data;
 

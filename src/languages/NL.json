@@ -4,6 +4,12 @@
         "download": "Download",
         "downloadStar": "Download Covid ster"
     },
+    "newsletterPopup": {
+        "subscribe": "Blijf op de hoogte!",
+        "footnote": "Door dit formulier in te vullen plaats je jouw e-mailadres op een mailing lijst (beheerd door Mailchimp) welk gebruikt kan worden om je op de hoogte te houden over allerlei toekomstige ontwikkelingen.",
+        "description": "Het is op dit moment niet mogelijk om een Covid ster te bestellen, meld je aan voor de nieuwsbrief om als eerste op de hoogte gebracht te worden zodra ze wel beschikbaar zijn.",
+        "email": "Emailadres"
+    },
     "takeActionBlock": {
         "callToAction": "Doe mee !",
         "text": "Wil je anderen laten zien dat jij je inzet voor de individuele vrijheden van jezelf, en die van anderen? Laat het zien! Je kunt een Covid ster genereren op basis van whatever jij wilt. Voel je dan ook vrij om jouw eigen Covid ster te genereren op basis van wat jij wilt. Wil je liever gewoon een setje bestellen, dan kan dat natuurlijk ook. Er zijn op dit moment een aantal kant en klare varianten beschikbaar, maar wil je liever jouw eigen ontwerp hebben? Dan kun je op de download pagina jouw eigen Covid ster downloaden als PNG of SVG. Vergeet niet de hashtag <strong>#covidster</strong> te gebruiken wanneer je foto’s online plaatst, om zo anderen te inspireren om zich in te zetten voor  individuele vrijheid en tegen maatschappelijke onderdrukking.",
@@ -27,7 +33,7 @@
     },
     "downloadPage": {
         "title": "Take action !",
-        "headerText": "Download je eigen covid ster, en verspreid hem om de boodschap voor een vrije maatschappij te verspreiden! De makkelijkste manier is om dit te verspreiden is via social media. Gebruik hiervoor de hashtag <strong>#covidster</strong>. Wil je, je liever in de fysieke wereld uitspreken door bijvoorbeeld stickers, patches of vlaggen te maken. Dan kun je hier jouw Covid ster downloaden als PNG of SVG. Ook staan hieronder een aantal links om je op weg te helpen om deze attributen zelf te maken met minimale middelen. Vind je dit teveel gedoe, dan zijn er ook beperkte mogelijkheden om <a href='/order'>custom ontwerpen te bestellen</a>. Dus voel je ook vrij om <a href='mailto:contact@jeffreyarts.nl'>contact op te nemen</a> wanneer je geinteresseerd bent om  te helpen deze mogelijkheden uit te breiden.",
+        "headerText": "Download je eigen covid ster, en verspreid hem om de boodschap voor een vrije maatschappij te verspreiden! De makkelijkste manier is om dit te verspreiden is via social media. Gebruik hiervoor de hashtag <strong>#covidster</strong>. Wil je, je liever in de fysieke wereld uitspreken door bijvoorbeeld stickers, patches of vlaggen te maken. Dan kun je hier jouw Covid ster downloaden als PNG of SVG. Ook staan hieronder een aantal links om je op weg te helpen om deze attributen zelf te maken met minimale middelen. Maar je kunt ze bijvoorbeeld ook gewoon (laten) drukken.",
         "downloadSection": {
             "title": "Download jouw eigen Covid ster",
             "description": "Om het idee achter de de covid ster voort te brengen kun je hem downloaden als SVG of PNG. Je bent vrij om het te gebruiken zoals jij wilt, maar vergeet niet om dit met respect te doen voor een ieder die er anders over denkt. Je kunt hem direct delen op sociale media, maar je kunt hem ook gebruiken om er posters, vlaggen, stickers of patches te maken. Zo kan het bericht erachter verspreid worden anoniem en op zichzelf. Vergeet niet om de hashtag <strong>#covidster</strong> te gebruiken wanneer je het deelt op social media. Zo kunnen we niet alleen het algoritme beinvloeden, maar wordt ook het bereik sneller zichtbaar.",

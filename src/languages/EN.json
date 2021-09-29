@@ -4,6 +4,12 @@
         "download": "Download",
         "downloadStar": "Download Covid star"
     },
+    "newsletterPopup": {
+        "subscribe": "Sign up for updates!",
+        "footnote": "By submitting this form, your e-mailaddress will be added to a mailing list (managed by Mailchimp) which will be used to keep you informed on all kinds of future updates.",
+        "description": "Currently it is not possible to purchase any Covid stars, subscribe to the mailinglist in order to get notified as soon as they become available.",
+        "email": "Email Address"
+    },
     "takeActionBlock": {
         "callToAction": "Take action !",
         "text": " Do you want to show others that you value individual freedom, and want to express your concerns about the current state of freedom in our society? Express yourself! You are free to generate your own Covid star based on any input you'd wish. I'd like to encourage you to do so as well, in order to emphasise your individual freedom. If you just prefer to order a set, than that is also just a possibility. There are currently a limited set  of items available with pre-determined strings. But if you prefer to have your own design, than you can download it as a PNG or SVG on the download page. Do not forget to use the hashtag <strong>#covidstar</strong> when you post them online, to inspire others to also express their concerns about the decline of individual freedom and the normalisation of censorship.",
@@ -26,7 +32,7 @@
     },
     "downloadPage": {
         "title": "Take action !",
-        "headerText": "On this page you can download your own Covid star so you can spread the message behind via different ways. The easiest way to spread the message is via social media, use the hashtag <strong>#covidster</strong> in your message associated with the image of your Covid star. To express yourself against the suppression of individual freedom. As a next step you can spread the message in the analog world via stickers, patches or flags. Your Covid star can be downloaded as PNG or SVG. You can also find some links on the bottom of this page, to help you materialize your star. If you prefer to let someone else make it, there are limited possibilities to <a href='/order'>order custom designs</a>. If you are able to produce custom designs on demand feel free to <a href='mailto:contact@jeffreyarts.nl'>reach out to me</a>, so we might be able to expand the possibilities.",
+        "headerText": "On this page you can download your own Covid star so you can spread the message behind via different ways. The easiest way to spread the message is via social media, use the hashtag <strong>#covidster</strong> in your message associated with the image of your Covid star. To express yourself against the suppression of individual freedom. As a next step you can spread the message in the analog world via stickers, patches or flags. Your Covid star can be downloaded as PNG or SVG. You can also find some links on the bottom of this page, to help you materialize your star. But you can also use these files to send them to a printshop or something.",
         "downloadSection": {
             "title": "Download your own Covid star",
             "description": "In order to bring the idea behind the Covid star further you can help by downloading your star as SVG or PNG. You are free to use it however you like, but don't forget to use it with respect to anyone who thinks different about it. You can share it directly via social media, but you can also use it to make posters, flags, stickers or patches to name a few. This way the message can be spread anonymously and on its own. Do not forget to use the hashtag <strong>#covidstar</strong> when you share it on social media. This way we don't just influence the algorithms, but increase the reach of the message at the same time.",

@@ -13,12 +13,13 @@
                 <input type="text" name="seed" id="seed" v-model="seedInput" v-on:focus="stopAnimation" v-on:blur="updateCovidStar(seedInput)" v-on:keyup="processSeed">
 
                 <div class="buttons-container">
-                    <button type="button" name="order" class="button __isPrimary">{{lng.main.order}}</button>
-                    <button type="button" name="download" class="button" @click="download(seed)">{{lng.main.download}}</button>
+                    <button type="button" name="order" @click="order(seed)" class="button">{{lng.main.order}}</button>
+                    <button type="button" name="download" class="button __isPrimary" @click="download(seed)">{{lng.main.download}}</button>
                 </div>
             </div>
         </div>
     </section>
+    <newsletter-popup :active="showNewsletter"></newsletter-popup>
 </template>
 
 <script>
@@ -27,12 +28,13 @@
     import cookie from 'js-cookie';
     import router from './../../../routes'
 
+    import newsletterPopup from './../../../components/newsletter-popup/newsletter-popup.vue'
     import covidStarView from './../../../components/covid-star/covid-star.vue'
     import languageSelect from './../../../components/language-select/language-select.vue'
     import LNG from './../../../services/languages.js'
 
     export default {
-        components: {covidStarView, languageSelect},
+        components: {covidStarView, languageSelect, newsletterPopup},
         props: [],
         data() {
             return {
@@ -40,6 +42,7 @@
                 seedInput: "",
                 updatingSeed: false,
                 seed: "",
+                showNewsletter: false,
                 lng: LNG.data,
                 inputAnimation: {
                     active: true,
@@ -56,6 +59,9 @@
                 }
 
                 this.seed = seedValue
+            },
+            order(seed) {
+                this.showNewsletter = true;
             },
             download(seed) {
                 cookie.set('activeSeed', seed, { expires: 3 });
@@ -94,7 +100,7 @@
                             this.updateCovidStar(this.seedInput)
                         }, this.inputAnimation.speed);
 
-                        setTimeout(this.animateInput, 3200);
+                        setTimeout(this.animateInput, 6400);
                     } else {
                         setTimeout(this.animateInput, this.inputAnimation.speed - Math.random()*120);
                     }
@@ -105,11 +111,15 @@
         mounted() {
             this.seed = this.defaults[0];
             this.seedInput = this.seed;
+            document.addEventListener("closeNewsletter",() => {
+                this.showNewsletter = false
+            });
+
             document.addEventListener("languageChange",() => {
                 this.lng = LNG.data;
                 this.defaults = LNG.data.headerBlock.inputSeeds;
             },false);
-            setTimeout(this.animateInput, 3200);
+            setTimeout(this.animateInput, 6400);
         }
     }
 </script>
