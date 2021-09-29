@@ -4,10 +4,36 @@
     <meta charset="UTF-8" />
     <link rel="icon" href="/favicon.png" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Covid ster</title>
+    <title>Covid star</title>
+    <meta property="og:image" content="https://www.covidster.nl/favicon.png">
+    <meta property="og:type" content="website" />
   </head>
   <body>
     <div id="app"></div>
+    <!-- Matomo -->
+    <script>
+      var _paq = window._paq = window._paq || [];
+      /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+      _paq.push(['trackPageView']);
+      _paq.push(['enableLinkTracking']);
+      var domainName = window.location.hostname.replace('www.','');
+      const pageTitle = document.querySelector("head title");
+
+      if (domainName.indexOf("covidster") != -1) {
+          pageTitle.innerText = "Covid ster"
+      } else {
+          pageTitle.innerText = "Covid star"
+      }
+
+      (function() {
+        var u=`//matomo.${domainName}/`;
+        _paq.push(['setTrackerUrl', u+'matomo.php']);
+        _paq.push(['setSiteId', '5']);
+        var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+        g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+      })();
+    </script>
+    <!-- End Matomo Code -->
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
