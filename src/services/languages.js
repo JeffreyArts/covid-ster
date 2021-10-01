@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import cookie from 'js-cookie';
 import {getUserLocales} from 'get-user-locale';
 import NL from "./../languages/NL.json"
@@ -31,7 +30,7 @@ const LNG =  {
         // Get language from browser
         if (!LNG.current) {
             var locales = getUserLocales();
-            _.each(locales, locale => {
+            locales.forEach( locale => {
                 if (LNG.current) {
                     return;
                 }

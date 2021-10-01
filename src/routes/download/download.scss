@@ -29,6 +29,7 @@
     flex-flow: column;
     width: 100%;
     align-items: center;
+    margin-bottom: 64px;
 
 }
 
@@ -137,13 +138,10 @@
 }
 
 .download-step-covid-star-container {
-    width: calc(50% - 32px);
+    width: 100%;
     max-width: 360px;
     margin-top: 32px;
     padding: 8px;
-    + .download-step-covid-star-container {
-        margin-left: 32px;
-    }
 }
 
 .download-step-covid-star-image {
@@ -163,6 +161,8 @@
 }
 .download-step-covid-star-buttons-container {
     .button {
+        margin-top: 0;
+        margin-top: 8px;
         padding-left: 32px;
         font-weight: normal;
         font-size: 18px;
@@ -184,7 +184,7 @@
     display: -webkit-flex;
     display: -ms-flex;
     display: flex;
-    flex-flow: row;
+    flex-flow: column;
 }
 
 .diy-step-options {
@@ -192,6 +192,7 @@
     display: -webkit-flex;
     display: -ms-flex;
     display: flex;
+    flex-flow: column;
     justify-content: space-between;
 }
 .diy-step-option {
@@ -200,8 +201,9 @@
     width: 100%;
     display: inline-block;
     text-decoration: none;
+
     + .diy-step-option {
-        margin-left: 32px;
+        margin-top: 32px;
     }
 
     .button {
@@ -250,9 +252,33 @@
     }
     .download-header {
         flex-flow:row;
+        margin-bottom: 0;
     }
     .download-card {
         width: 36%;
         padding-left: 48px;
+    }
+
+
+    .download-step-row {
+        flex-flow: row;
+    }
+
+    .download-step-covid-star-container {
+        width: calc(50% - 32px);
+        + .download-step-covid-star-container {
+            margin-left: 32px;
+        }
+    }
+
+    .diy-step-options {
+        flex-flow: row;
+    }
+
+    .diy-step-option {
+        + .diy-step-option {
+            margin-top: 0;
+            margin-left: 32px;
+        }
     }
 }

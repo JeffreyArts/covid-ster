@@ -17,7 +17,6 @@ import seedrandom  from "seedrandom";
 import patternToThreejs from './../../services/pattern-to-threejs.js'
 import potrace from './../../services/potrace';
 import LNG from './../../services/languages.js'
-import { CSG } from 'three-csg-ts';
 
 var camera, renderer, scene;
 var container =  {
@@ -204,12 +203,6 @@ export default {
                 tubeThickness: .0125,
             });
 
-            let mergedObject = face3D[0];
-
-            for (var i = 1; i < face3D.length; i++) {
-                mergedObject = CSG.toMesh(CSG.fromMesh(mergedObject).union(CSG.fromMesh(face3D[i])), mergedObject.matrix)
-            }
-
 
             if (this.faces[faceIndex].title.indexOf("top") != -1) {
                 _.remove(pattern3D.children, childObject => {
@@ -219,8 +212,8 @@ export default {
                         return true;
                     }
                 })
-                cube.top = mergedObject.clone();
-                cube.top.material = face3D[0].material;
+                cube.top = face3D.clone();
+                cube.top.material = face3D.material;
                 cube.top.name = "face-top"
                 cube.top.rotateZ(degrees_to_radians(180));
 
@@ -239,8 +232,8 @@ export default {
                         return true;
                     }
                 })
-                cube.bottom = mergedObject.clone();
-                cube.bottom.material = face3D[0].material;
+                cube.bottom = face3D.clone();
+                cube.bottom.material = face3D.material;
                 cube.bottom.name = "face-bottom"
                 // cube.bottom.rotateZ(degrees_to_radians(180));
 
@@ -258,8 +251,8 @@ export default {
                         return true;
                     }
                 })
-                cube.front = mergedObject.clone();
-                cube.front.material = face3D[0].material;
+                cube.front = face3D.clone();
+                cube.front.material = face3D.material;
                 cube.front.name = "face-front"
                 cube.front.rotateZ(degrees_to_radians(180));
                 cube.front.rotateX(degrees_to_radians(90));
@@ -278,8 +271,8 @@ export default {
                         return true;
                     }
                 })
-                cube.back = mergedObject.clone();
-                cube.back.material = face3D[0].material;
+                cube.back = face3D.clone();
+                cube.back.material = face3D.material;
                 cube.back.name = "face-back"
                 cube.back.rotateZ(degrees_to_radians(180));
                 cube.back.rotateY(degrees_to_radians(180));
@@ -300,8 +293,8 @@ export default {
                         return true;
                     }
                 })
-                cube.left = mergedObject.clone();
-                cube.left.material = face3D[0].material;
+                cube.left = face3D.clone();
+                cube.left.material = face3D.material;
                 cube.left.name = "face-left"
                 cube.left.rotateZ(degrees_to_radians(180));
                 cube.left.rotateY(degrees_to_radians(90));
@@ -322,8 +315,8 @@ export default {
                         return true;
                     }
                 })
-                cube.right = mergedObject.clone();
-                cube.right.material = face3D[0].material;
+                cube.right = face3D.clone();
+                cube.right.material = face3D.material;
                 cube.right.name = "face-right"
                 cube.right.rotateZ(degrees_to_radians(180));
                 cube.right.rotateY(degrees_to_radians(270));
@@ -339,94 +332,99 @@ export default {
             return array[Math.floor(new Math.seedrandom(seed)() * array.length)];
         },
         procesSeed(){
-            const Potrace = new potrace();
-            this.safeSeed = this.seed
-            if (!this.seed) {
-                this.safeSeed = "D3f4uLt";
-            }
-
-            _.each(this.faces, (face, faceIndex) => {
-                this.updateFace(faceIndex)
-            })
-            _.each(scene.children, childObject => {
-                if (childObject.modelValue == true) {
-                    removeObject(childObject)
+            return new Promise(resolve => {
+                var Potrace = new potrace();
+                this.safeSeed = this.seed
+                if (!this.seed) {
+                    return
                 }
-            })
 
-            _.each(this.faces,(face, faceIndex) => {
-                if (face.polylines.length > 0) {
-                    this.create3DPattern(faceIndex)
+                _.each(this.faces, (face, faceIndex) => {
+                    this.updateFace(faceIndex)
+                })
+                _.each(scene.children, childObject => {
+                    if (childObject.modelValue == true) {
+                        removeObject(childObject)
+                    }
+                })
+
+                _.each(this.faces,(face, faceIndex) => {
+                    if (face.polylines.length > 0) {
+                        this.create3DPattern(faceIndex)
+                    }
+                });
+
+                pattern3D.rotation.x = degrees_to_radians(54.75);
+                pattern3D.rotation.y = degrees_to_radians(45);
+
+                if (pattern3D && pattern3D.uuid && pattern3D.children.length > 0) {
+                    scene.add(pattern3D)
+                }
+
+
+                // Prepare new render
+                renderer.setClearColor( 0xffffff, 0 );
+                var svgElement = this.$el.querySelector('svg');
+                if (svgElement) svgElement.remove();
+                renderer.render(scene, camera);
+
+
+                // Get image for PNG
+                this.image = renderer.domElement.toDataURL("image/png");
+                if(this.output && !this.outline) {
+                    this.output.png = this.image
+                }
+
+
+
+                if (this.filetype == 'svg' || this.outline) {
+                    // Render image for SVG
+                    renderer.setClearColor( 0xffffff, 1 );
+                    renderer.render(scene, camera);
+                    Potrace.loadImageFromUrl(renderer.domElement.toDataURL("image/png"))
+
+                    Potrace.process(()=> {
+                        this.svg = '<svg id="svg" version="1.1" viewBox="0 0 2048 2048" xmlns="http://www.w3.org/2000/svg">';
+                        var svgPath = Potrace.getSVG(1);
+                        if (this.outline) {
+                            this.svg += `<path d="M${svgPath.split("M")[1]}" stroke="white" stroke-width="180" fill="white"/>`;
+                        }
+                        this.svg += `<path d="${svgPath}" fill="black"/>`;
+                        this.svg += `</svg>`;
+
+
+                        // Remove any characters outside the Latin1 range
+                        var decoded = unescape(encodeURIComponent(this.svg));
+                        // Now we can use btoa to convert the svg to base64
+                        var base64 = btoa(decoded);
+
+                        if(this.output) {
+                            this.output.svg = `data:image/svg+xml;base64,${base64}`;
+                        }
+
+                        if (this.filetype == 'svg') {
+                            var svgElement = this.$el.querySelector('svg');
+                            if (svgElement) svgElement.remove();
+                            this.$el.insertAdjacentHTML('beforeend',this.svg)
+                        }
+
+                        base64SvgToBase64Png(`data:image/svg+xml;base64,${base64}`, 2048).then(pngBlob => {
+
+                            if (this.filetype == 'png' && this.outline) {
+                                this.image = pngBlob;
+                            }
+
+
+                            if(this.output && this.outline) {
+                                this.output.png = pngBlob
+                            }
+                            base64 = null;
+                            decoded = null;
+                        })
+                        Potrace = null;
+                    });
                 }
             });
-
-            pattern3D.rotation.x = degrees_to_radians(54.75);
-            pattern3D.rotation.y = degrees_to_radians(45);
-
-            if (pattern3D && pattern3D.uuid && pattern3D.children.length > 0) {
-                scene.add(pattern3D)
-            }
-
-
-            // Prepare new render
-            renderer.setClearColor( 0xffffff, 0 );
-            var svgElement = this.$el.querySelector('svg');
-            if (svgElement) svgElement.remove();
-            renderer.render(scene, camera);
-
-
-            // Get image for PNG
-            this.image = renderer.domElement.toDataURL("image/png");
-            if(this.output && !this.outline) {
-                this.output.png = this.image
-            }
-
-
-
-            if (this.filetype == 'svg' || this.outline) {
-                // Render image for SVG
-                renderer.setClearColor( 0xffffff, 1 );
-                renderer.render(scene, camera);
-                Potrace.loadImageFromUrl(renderer.domElement.toDataURL("image/png"))
-
-                Potrace.process(()=> {
-                    this.svg = '<svg id="svg" version="1.1" viewBox="0 0 2048 2048" xmlns="http://www.w3.org/2000/svg">';
-                    var svgPath = Potrace.getSVG(1);
-                    if (this.outline) {
-                        this.svg += `<path d="M${svgPath.split("M")[1]}" stroke="white" stroke-width="180" fill="white"/>`;
-                    }
-                    this.svg += `<path d="${svgPath}" fill="black"/>`;
-                    this.svg += `</svg>`;
-
-
-                    // Remove any characters outside the Latin1 range
-                    var decoded = unescape(encodeURIComponent(this.svg));
-                    // Now we can use btoa to convert the svg to base64
-                    var base64 = btoa(decoded);
-
-                    if(this.output) {
-                        this.output.svg = `data:image/svg+xml;base64,${base64}`;
-                    }
-
-                    if (this.filetype == 'svg') {
-                        var svgElement = this.$el.querySelector('svg');
-                        if (svgElement) svgElement.remove();
-                        this.$el.insertAdjacentHTML('beforeend',this.svg)
-                    }
-
-                    base64SvgToBase64Png(`data:image/svg+xml;base64,${base64}`, 2048).then(pngBlob => {
-
-                        if (this.filetype == 'png' && this.outline) {
-                            this.image = pngBlob;
-                        }
-
-
-                        if(this.output && this.outline) {
-                            this.output.png = pngBlob
-                        }
-                    })
-                });
-            }
 
         },
         updateFace(faceIndex) {

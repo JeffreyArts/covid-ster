@@ -129,7 +129,7 @@ export default {
             connectStepComplete: false,
             updatingSeed: false,
             seedInput: "",
-            seed: cookie.get('activeSeed') || "Covid*",
+            seed: cookie.get('activeSeed') || "✨",
         }
     },
     methods: {

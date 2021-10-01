@@ -1,257 +1,6 @@
 import {Algorithm, Grid, Polyline} from 'visual-pattern-generator';
 import _  from 'lodash';
 import * as THREE from 'three';
-import { CSG } from 'three-csg-ts'
-
-const cutPart = (partlist, pattern, char, options) => {
-    if (!options) {
-        console.error("Missing required options object", {x:0,y:0,thickness:1});
-    }
-
-    if (!options.thickness){
-        console.warn("Missing thickness option")
-    }
-    if (!_.isNumber(options.thickness)){
-        console.warn("Invalid thickness option (needs to be a decimal number)")
-    }
-
-    var newPart         = false;
-    var cuttingTool1    = new THREE.Mesh(new THREE.BoxGeometry(3,options.thickness*3, Math.sqrt(2)),  new THREE.MeshLambertMaterial( { color: `#f00` } )) // red
-    var cuttingTool2    = new THREE.Mesh(new THREE.BoxGeometry(3,options.thickness*3, Math.sqrt(2)),  new THREE.MeshLambertMaterial( { color: `#00f` } )) // blue
-    var cuttingTool3    = new THREE.Mesh(new THREE.BoxGeometry(3,options.thickness*3, Math.sqrt(2)),  new THREE.MeshLambertMaterial( { color: `#f90` } )) // orange
-    var cuttingTool4    = new THREE.Mesh(new THREE.BoxGeometry(3,options.thickness*3, Math.sqrt(2)),  new THREE.MeshLambertMaterial( { color: `#0f0` } )) // green
-
-    cuttingTool1.position.z = options.y;
-    cuttingTool1.position.x = options.x + 1;
-    cuttingTool1.position.y = options.thickness;
-    cuttingTool1.material.transparent = true;
-    cuttingTool1.material.opacity = .16;
-    cuttingTool1.rotateY(Math.PI/180* -45);
-
-    cuttingTool2.position.z = options.y ;
-    cuttingTool2.position.x = options.x + 1;
-    cuttingTool2.position.y = options.thickness;
-    cuttingTool2.material.transparent = true;
-    cuttingTool2.material.opacity = .16;
-    cuttingTool2.rotateY(Math.PI/180* 45);
-
-    cuttingTool3.position.z = options.y;
-    cuttingTool3.position.x = options.x - 1;
-    cuttingTool3.position.y = options.thickness;
-    cuttingTool3.material.transparent = true;
-    cuttingTool3.material.opacity = .16;
-    cuttingTool3.rotateY(Math.PI/180* 45);
-
-    cuttingTool4.position.z = options.y ;
-    cuttingTool4.position.x = options.x - 1;
-    cuttingTool4.position.y = options.thickness;
-    cuttingTool4.material.transparent = true;
-    cuttingTool4.material.opacity = .16;
-    cuttingTool4.rotateY(Math.PI/180* -45);
-
-    cuttingTool1.updateMatrix();
-    cuttingTool2.updateMatrix();
-    cuttingTool3.updateMatrix();
-    cuttingTool4.updateMatrix();
-
-    if (char == "└" || char == "┘" || char == "┌" || char == "┐" || char == "┬" || char == "┴" || char == "┤" || char == "├" || char == "┼") {
-    } else {
-        return;
-    }
-
-
-    _.each(pattern, (polyline, index) => {
-        var orientation = "vert";
-        var found = _.find(polyline, (cord, index) => {
-            if (cord.x == options.x && cord.y == options.y) {
-                if (
-                    (polyline[index + 1] && polyline[index + 1].y == polyline[index].y) ||
-                    (polyline[index - 1] && polyline[index - 1].y == polyline[index].y)
-                ) {
-                    orientation = "hor"
-                }
-                return true;
-            }
-        });
-
-        if (!found) {return;}
-
-        var threeObject = _.find(partlist, part => {
-            if (part.polylineIndex == index) {
-                return part
-            }
-        })
-
-        if (!threeObject) {
-            return;
-        }
-
-        threeObject.updateMatrix();
-
-
-        if (char == "┌") {
-            if (orientation == "vert") {
-                newPart = CSG.subtract(threeObject, cuttingTool1)
-            } else {
-                newPart = CSG.subtract(threeObject, cuttingTool4)
-            }
-        } else if (char == "┐") {
-            if (orientation == "vert") {
-                newPart = CSG.subtract(threeObject, cuttingTool3)
-            } else {
-                newPart = CSG.subtract(threeObject, cuttingTool2)
-            }
-        } else if (char == "└") {
-            if (orientation == "vert") {
-                newPart = CSG.subtract(threeObject, cuttingTool2)
-            } else {
-                newPart = CSG.subtract(threeObject, cuttingTool3)
-            }
-        } else if (char == "┘") {
-            if (orientation == "vert") {
-                newPart = CSG.subtract(threeObject, cuttingTool4)
-            } else {
-                newPart = CSG.subtract(threeObject, cuttingTool1)
-            }
-        } else if (
-            char == "┴" ||
-            char == "┬" ||
-            char == "┤" ||
-            char == "├" ||
-            char == "┼"
-        ) {
-
-            if (orientation == "vert") {
-                var other = null
-                var self = null
-                var polylines = Polyline.getLinesAtPoint(options.x,options.y,pattern)
-                _.each(polylines, polyline => {
-                    if (polyline.line[0].x == polyline.line[1].x) {
-                        if (polyline.index != index) {
-                            other = _.reduce(pattern[polyline.index], (res, val) => res.y + val.y)
-                            self = _.reduce(pattern[index], (res, val) => res.y + val.y)
-                        }
-                    }
-                })
-
-                if (char == "┬") {
-                    newPart = CSG.toMesh(CSG.fromMesh(threeObject).subtract(CSG.fromMesh(cuttingTool3)), threeObject.matrix)
-                    newPart.updateMatrix()
-                    newPart = CSG.toMesh(CSG.fromMesh(newPart).subtract(CSG.fromMesh(cuttingTool1)), newPart.matrix)
-                } else if (char == "┴") {
-                    newPart = CSG.toMesh(CSG.fromMesh(threeObject).subtract(CSG.fromMesh(cuttingTool4)), threeObject.matrix)
-                    newPart.updateMatrix()
-                    newPart = CSG.toMesh(CSG.fromMesh(newPart).subtract(CSG.fromMesh(cuttingTool2)), newPart.matrix)
-                } else if (char == "├") {
-                    if (self < other) {
-                        // Top
-                        newPart = CSG.toMesh(CSG.fromMesh(threeObject).subtract(CSG.fromMesh(cuttingTool4)), threeObject.matrix)
-                        newPart.updateMatrix()
-                        newPart = CSG.toMesh(CSG.fromMesh(newPart).subtract(CSG.fromMesh(cuttingTool2)), newPart.matrix)
-                    } else {
-                        // Bottom
-                        newPart = CSG.toMesh(CSG.fromMesh(threeObject).subtract(CSG.fromMesh(cuttingTool1)), threeObject.matrix)
-                    }
-                } else if (char == "┤") {
-                    if (self < other) {
-                        // Top
-                        newPart = CSG.toMesh(CSG.fromMesh(threeObject).subtract(CSG.fromMesh(cuttingTool4)), threeObject.matrix)
-                        newPart.updateMatrix()
-                        newPart = CSG.toMesh(CSG.fromMesh(newPart).subtract(CSG.fromMesh(cuttingTool2)), newPart.matrix)
-                    } else {
-                        // Bottom
-                        newPart = CSG.toMesh(CSG.fromMesh(threeObject).subtract(CSG.fromMesh(cuttingTool3)), threeObject.matrix)
-                    }
-                } else if (char == "┼") {
-                    if (self < other) {
-                        // Top
-                        newPart = CSG.toMesh(CSG.fromMesh(threeObject).subtract(CSG.fromMesh(cuttingTool2)), threeObject.matrix)
-                        newPart.updateMatrix()
-                        newPart = CSG.toMesh(CSG.fromMesh(newPart).subtract(CSG.fromMesh(cuttingTool4)), newPart.matrix)
-                    } else {
-                        // Bottom
-                        newPart = CSG.toMesh(CSG.fromMesh(threeObject).subtract(CSG.fromMesh(cuttingTool3)), threeObject.matrix)
-                        newPart.updateMatrix()
-                        newPart = CSG.toMesh(CSG.fromMesh(newPart).subtract(CSG.fromMesh(cuttingTool1)), newPart.matrix)
-                    }
-                }
-            } else {
-                var other = null
-                var self = null
-                var polylines = Polyline.getLinesAtPoint(options.x,options.y,pattern)
-                _.each(polylines, polyline => {
-                    if (polyline.line[0].y == polyline.line[1].y) {
-                        if (polyline.index != index) {
-                            other = _.reduce(pattern[polyline.index], (res, val) => res.x + val.x)
-                            self = _.reduce(pattern[index], (res, val) => res.x + val.x)
-                        }
-                    }
-                })
-
-                if (char == "┬") {
-                    if (self < other) {
-                        // Left
-                        newPart = CSG.toMesh(CSG.fromMesh(threeObject).subtract(CSG.fromMesh(cuttingTool2)), threeObject.matrix)
-                    } else {
-                        // Right
-                        newPart = CSG.toMesh(CSG.fromMesh(threeObject).subtract(CSG.fromMesh(cuttingTool3)), threeObject.matrix)
-                        newPart.updateMatrix()
-                        newPart = CSG.toMesh(CSG.fromMesh(newPart).subtract(CSG.fromMesh(cuttingTool4)), newPart.matrix)
-                    }
-
-                } else if (char == "┴") {
-                    if (self < other) {
-                        // Left
-                        newPart = CSG.toMesh(CSG.fromMesh(threeObject).subtract(CSG.fromMesh(cuttingTool1)), threeObject.matrix)
-                    } else {
-                        // Right
-                        newPart = CSG.toMesh(CSG.fromMesh(threeObject).subtract(CSG.fromMesh(cuttingTool3)), threeObject.matrix)
-                        newPart.updateMatrix()
-                        newPart = CSG.toMesh(CSG.fromMesh(newPart).subtract(CSG.fromMesh(cuttingTool4)), newPart.matrix)
-                    }
-                } else if (char == "├") {
-
-                    newPart = CSG.toMesh(CSG.fromMesh(threeObject).subtract(CSG.fromMesh(cuttingTool4)), threeObject.matrix)
-                    newPart.updateMatrix()
-                    newPart = CSG.toMesh(CSG.fromMesh(newPart).subtract(CSG.fromMesh(cuttingTool3)), newPart.matrix)
-                } else if (char == "┤") {
-                    newPart = CSG.toMesh(CSG.fromMesh(threeObject).subtract(CSG.fromMesh(cuttingTool1)), threeObject.matrix)
-                    newPart.updateMatrix()
-                    newPart = CSG.toMesh(CSG.fromMesh(newPart).subtract(CSG.fromMesh(cuttingTool2)), newPart.matrix)
-                } else if (char == "┼") {
-                    if (self < other) {
-                        // Left
-                        newPart = CSG.toMesh(CSG.fromMesh(threeObject).subtract(CSG.fromMesh(cuttingTool1)), threeObject.matrix)
-                        newPart.updateMatrix()
-                        newPart = CSG.toMesh(CSG.fromMesh(newPart).subtract(CSG.fromMesh(cuttingTool2)), newPart.matrix)
-                    } else {
-                        // Right
-                        newPart = CSG.toMesh(CSG.fromMesh(threeObject).subtract(CSG.fromMesh(cuttingTool3)), threeObject.matrix)
-                        newPart.updateMatrix()
-                        newPart = CSG.toMesh(CSG.fromMesh(newPart).subtract(CSG.fromMesh(cuttingTool4)), newPart.matrix)
-                    }
-                }
-            }
-        }
-
-
-        if (newPart) {
-            newPart.material = options.material
-            newPart.material.castShadow = true;
-            newPart.material.receiveShadow = true;
-            newPart.orientation = orientation;
-            newPart.polylineIndex = index;
-            newPart.updateMatrix()
-            _.remove(partlist, part => {
-                if (part.polylineIndex == index) {
-                    return part
-                }
-            })
-            partlist.push (newPart)
-        }
-
-    });
-}
 
 const mergePattern = (pattern, map) => {
     Grid.loop(map, (x,y) => {
@@ -312,7 +61,7 @@ const patternToThreejsService = (pattern, options = {
     }) => {
 
         const type      = _.isUndefined(options.type) ? "cylinder" : options.type;
-        const parts     = [];
+        const parts     =  new THREE.Object3D();
         let   radius    = 0;
 
         if (type.indexOf["box", "cylinder"] == -1) {
@@ -340,10 +89,7 @@ const patternToThreejsService = (pattern, options = {
 
 
         const material  = new THREE.MeshLambertMaterial( { color: options.color });
-        const map = Polyline.createMap(pattern, options.width, options.height)
-        // _.each(map, row => {
-        //     console.log(JSON.stringify(_.map(row, o =>{return o.char})));
-        // })
+        const map = Polyline.createMap(pattern, options.width, options.height);
 
         mergePattern(pattern, map);
         pattern.forEach((polyline, polylineIndex) => {
@@ -417,11 +163,6 @@ const patternToThreejsService = (pattern, options = {
                 }
 
                 var newPartMesh = new THREE.Mesh(geometry)
-                if (options.tube) {
-                    var cuttingMesh = new THREE.Mesh(cuttingGeometry)
-                    cuttingMesh.updateMatrix();
-                    newPartMesh = CSG.subtract(newPartMesh, cuttingMesh);
-                }
 
                 newPartMesh.material = material;
                 newPartMesh.orientation = orientation
@@ -436,36 +177,10 @@ const patternToThreejsService = (pattern, options = {
                     newPartMesh.castShadow = true;
                 }
 
-
-                    // // Make 2 box meshes..
-                    // const meshA = new THREE.Mesh(new THREE.BoxGeometry(1,1,1), new THREE.MeshNormalMaterial());
-                    // const meshB = new THREE.Mesh(new THREE.BoxGeometry(1,1,1));
-                    //
-                    // meshA.updateMatrix();
-                    // meshB.updateMatrix();
-                    //
-                    // const bspA = CSG.fromMesh(meshA);
-                    // const bspB = CSG.fromMesh(meshB);
-                    //
-                    // // Subtract one bsp from the other via .subtract... other supported modes are .union and .intersect
-                    // const cube = CSG.toMesh(bspA.union(bspB), meshA.matrix);
-                //
-                // result = CSG.toMesh(CSG.fromMesh(result).union(CSG.fromMesh(newPartMesh)), result.matrix);
-
-                parts.push(newPartMesh)
-                // scene.add(newPartMesh) // Show this only for development purposes
+                parts.add(newPartMesh)
             });
         });
 
-        Grid.loop(map, (x,y) => {
-            var obj = map[y][x]
-            cutPart(parts, pattern, obj.char, {
-                thickness: radius*2,
-                x:x,
-                y:y,
-                material: material
-            })
-        })
         return parts
 
 };

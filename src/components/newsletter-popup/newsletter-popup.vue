@@ -5,7 +5,7 @@
         <div class="newsletter-popup-form">
             <!-- Begin Mailchimp Signup Form -->
             <div id="mc_embed_signup">
-                <form action="https://jeffreyarts.us5.list-manage.com/subscribe/post?u=34e290bd9025e9bddf41ce7a4&amp;id=bfb58917e0" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+                <form action="https://jeffreyarts.us5.list-manage.com/subscribe/post?u=34e290bd9025e9bddf41ce7a4&amp;id=bfb58917e0" method="post" @submit="closePopup(true)" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
                     <div id="mc_embed_signup_scroll">
                         <h2 class="newsletter-popup-form-title">{{lng.newsletterPopup.subscribe}}</h2>
                         <p>{{lng.newsletterPopup.description}} </p>
@@ -49,7 +49,8 @@ export default {
     },
     methods: {
         closePopup(event) {
-            if (event.path[0].className == this.$el.className) {
+            if (!this.active) return;
+            if (event === true || (event.target && event.target.className == this.$el.className) || (event.path && event.path[0].className == this.$el.className)) {
                 document.dispatchEvent(closeNewsletterEvent);
             }
         }
