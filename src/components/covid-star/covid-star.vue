@@ -90,13 +90,7 @@ for (var i = 0; i < 4; i++) {
         [0,0,0,0,0],
     ])
 }
-masks.push([
-    [1,1,0,1,1],
-    [1,0,0,0,1],
-    [0,0,0,0,0],
-    [1,0,0,0,1],
-    [1,1,0,1,1],
-])
+
 
 function degrees_to_radians(degrees) {
   var pi = Math.PI;
@@ -349,9 +343,7 @@ export default {
                 })
 
                 _.each(this.faces,(face, faceIndex) => {
-                    if (face.polylines.length > 0) {
-                        this.create3DPattern(faceIndex)
-                    }
+                    this.create3DPattern(faceIndex)
                 });
 
                 pattern3D.rotation.x = degrees_to_radians(54.75);

@@ -17,8 +17,8 @@
                         <input type="text" name="seed" :placeholder="card.placeholder" id="seed" v-model="card.seedInput" v-on:blur="updateCovidStar(card)" v-on:keyup="processSeed(card)">
 
                         <div class="covid-star-card-buttons-container">
-                            <button type="button" name="order" @click="order(seed)" class="button">{{lng.main.order}}</button>
-                            <button type="button" name="download" class="button __isPrimary" @click="download(seed)">{{lng.main.download}}</button>
+                            <button type="button" name="order" @click="order(card.seed)" class="button">{{lng.main.order}}</button>
+                            <button type="button" name="download" class="button __isPrimary" @click="download(card.seed)">{{lng.main.download}}</button>
                         </div>
                     </article>
                 </div>

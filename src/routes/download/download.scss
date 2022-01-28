@@ -73,7 +73,7 @@
 .download-title {
     display: inline-block;
     margin: auto;
-    font-size: 64px;
+    font-size: 48px;
     font-weight: normal;
 }
 
@@ -243,7 +243,11 @@
     font-family: 'Fixedsys';
 }
 
-@media all and (min-width:640px){
+@media all and (min-width:640px) {
+
+    .download-title {
+        font-size: 64px;
+    }
     .download-container {
         padding: 64px;
     }
