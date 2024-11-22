@@ -4,7 +4,7 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
-        "deploy": "bash deploy.sh",
+        "deploy": "bash deploy.sh production",
         "serve": "vite preview"
     },
     "dependencies": {

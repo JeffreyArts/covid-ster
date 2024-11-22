@@ -6,3 +6,4 @@ dist
 .vscode
 deploy.sh
 yarn-error.log
+.env.*
